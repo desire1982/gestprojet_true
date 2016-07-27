@@ -306,7 +306,7 @@ $resultat_str=mysql_query($requete_str);
       
 	  </div>
       <div class="modal-footer">
-<input type="button" id="validerNiveau" class="btn btn-success" value="VALIDER"/> <input type="button" id="retour" class="btn btn-success" value="RETOUR"/>
+<input type="button" id="validerNiveau" class="btn btn-success" value="VALIDER"/> <input type="button" id="retour_niveauExe" class="btn btn-success" value="RETOUR"/>
 </div>
 	 </div>
 	</div>
@@ -324,7 +324,7 @@ $resultat_str=mysql_query($requete_str);
 	  <div class="modal-body" id="resultDossier">
 	  </div>
       <div class="modal-footer">
-<input type="button" id="retour" class="btn btn-default" value="RETOUR"/>
+<input type="button" id="retour_detail_niveau" class="btn btn-default" value="RETOUR"/>
 </div>
 	 </div>
 	</div>
@@ -580,6 +580,16 @@ return false;
 	location.href=document.URL;	
 		})
     
+	// BOUTON RETOUR NIVEAU D'EXECUTION
+	$('#retour_niveauExe').on('click', function(){
+	location.href=document.URL;	
+		})
+	
+	// BOUTON RETOUR DETAIL NIVEAU D'EXECUTION
+	$('#retour_detail_niveau').on('click', function(){
+	location.href=document.URL;	
+		})
+	
 	
 	$('#validerNiveau').on('click', function(){
 		
