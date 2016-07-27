@@ -51,7 +51,7 @@ if(isset($_POST['login_btn'])){
 ?>
 <div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-  <strong>Danger!</strong> Ce nom ou mot de passe n'existe pas.
+  <strong>Attention??</strong> Ce nom ou mot de passe n'existe pas.
 </div>
 <?php
   }}
