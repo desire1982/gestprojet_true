@@ -54,7 +54,7 @@
  
  <table width="200" border="1">
   <tr>
-      <td><button disabled  id="nouveau_financement"  class="btn btn-primary">FINANCEMENT</button></td>
+      <td><button   id="nouveau_financement"  class="btn btn-primary">FINANCEMENT</button></td>
   </tr>
 </table>
 
