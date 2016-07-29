@@ -8,7 +8,7 @@
         <meta name="author" content="Shahrukh Khan">
         <meta name="keywords" content="multi admin, mysql, php, demo, role, rights, user">
 
-        <title><?php //echo PROJECT_NAME ?> </title>
+        <title>GESTPROJETV1   <?php //echo PROJECT_NAME ?> </title>
 
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -43,13 +43,13 @@
 
                 <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1" >
                     <ul class="nav navbar-nav">
-                        <li><a href="#">PHP</a></li>
-                        <li><a href="#">PHP Tutorial</a></li>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">jQuery</a></li>
-                        <li><a href="#">Ajax</a></li>
-                        <li><a href="#">Premium Projects</a></li>
-                        <li><a href="#">Mini Projects</a></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
                     </ul>
 
                 </div>

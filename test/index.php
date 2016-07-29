@@ -61,16 +61,16 @@ include 'header.php';
 
             <fieldset>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label" for="username"><span class="required">*</span>Username:</label>
+                    <label class="col-lg-2 control-label" for="username"><span class="required">*</span>Login:</label>
                     <div class="col-lg-6">
-                        <input type="text" value="" placeholder="User Name" id="username" class="form-control" name="username" required="" >
+                        <input type="text" value="" placeholder="Login" id="username" class="form-control" name="username" required="" >
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-2 control-label" for="user_password"><span class="required">*</span>Password:</label>
+                    <label class="col-lg-2 control-label" for="user_password"><span class="required">*</span>Mot de Passe:</label>
                     <div class="col-lg-6">
-                        <input type="password" value="" placeholder="Password" id="user_password" class="form-control" name="user_password" required="" >
+                        <input type="password" value="" placeholder="Mot de passe" id="user_password" class="form-control" name="user_password" required="" >
                     </div>
                 </div>
 
@@ -85,9 +85,9 @@ include 'header.php';
                 <div class="form-group">
                     <div class="col-lg-6 col-lg-offset-2">
                        <div class="help-block">
-                    <strong>Role == username/password</strong><br>
+                   <!-- <strong>Role == username/password</strong><br>
                     Superadmin == shahrukh/123456<br>
-                    Admin == ronaldo/ronaldo<br>
+                    Admin == ronaldo/ronaldo<br>-->
                 </div>
                     </div>
                 </div>

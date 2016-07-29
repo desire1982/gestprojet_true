@@ -62,7 +62,7 @@ if (!isset($_SESSION["access"])) {
 include 'header.php';
 ?>
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-5">
         <h3>Displaying menu in a group list</h3>
         <div class="well well-sm">
             <ul>
@@ -89,6 +89,15 @@ include 'header.php';
         </div>
 
         <div style="height: 10px;">&nbsp;</div>
+        
+        
+                   
+                       
+                        
+                                
+       
+        
+        
 
         <h3>Displaying menu as an individual button</h3>
         <div class="well well-sm">
@@ -120,7 +129,7 @@ include 'header.php';
     </div>
 
     <div class="col-lg-3">
-       <?php include 'sidebar.php'; ?>
+      <?php /*?> <?php include 'sidebar.php'; ?><?php */?>
     </div>
 </div>
 <?php include 'footer.php'; ?>
