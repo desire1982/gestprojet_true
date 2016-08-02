@@ -44,7 +44,7 @@
 
     <div id="wrapper">
  <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
 
  <div id="page-wrapper">
@@ -60,7 +60,7 @@
 
                 
   <?php 
-include('/config/connectmysql.php'); 
+include('config/connectmysql.php'); 
    $sql_affiche="SELECT * FROM tbl_destination ORDER BY destination ASC";
   ?>              
                 

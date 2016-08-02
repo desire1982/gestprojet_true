@@ -46,8 +46,9 @@
 
         <?php 
 		//session_start();
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	  $role = $_SESSION['role'];
+	 
 	   ?>
 
  <div id="page-wrapper">
@@ -73,10 +74,10 @@
      <th width="200"> libellee destination </th>
      <th width="200"> option </th>
      </tr>
-     
+     <tr>
      <?php
 
-    include('/config/connect.php'); 
+    include('config/connect.php'); 
    $sql_affiche="SELECT * FROM tbl_destination ORDER BY destination ASC";
  
 	 
@@ -89,7 +90,24 @@
        
 <td><?php echo $row['destination']; ?> </td>
 <td><?php echo $row['lib_destination']; ?></td>
-<td><?php if($role == 'admin') { ?><button class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button><?php } ?> <button class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<td>
+ <!--Si l'Utilisateur est un administrateur on affiche le bouton Editer-->
+<?php if($role == 'admin') { ?>
+<button class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<?php } ?> 
+ <!--Si l'Utilisateur est un visiteur on grise le bouton Editer-->
+<?php if($role == 'visiteur') { ?>
+<button disabled class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<?php } ?> 
+ <!--Si l'Utilisateur est un visiteur on grise le bouton Supprimer-->
+<?php if($role == 'visiteur') { ?>
+<button disabled class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<?php } ?>
+ <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Suprimer-->
+<?php if($role == 'admin' ||$role == 'projet' ) { ?>
+<button class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<?php } ?>
+
 
 <a href="javascript:editerDestination('<?php echo $row['destination']; ?>');" class="glyphicon glyphicon-edit"></a><a href="javascript:eliminerDestination('<?php echo $row['destination']; ?>')" class="glyphicon glyphicon-remove-circle"></a></td> 
 </tr>

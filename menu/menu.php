@@ -3,9 +3,24 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
            <?php 
 		   session_start();
-		   include('/menu/menu_horizontal.php');
-		   echo $_SESSION['role'];
-		   $role = $_SESSION['role'];
+		   include('menu/menu_horizontal.php');
+		  // echo $_SESSION['role'].'desire';
+		   if(empty($_SESSION))
+{
+	
+	if(! isset($_SESSION['role']))
+	{
+		header("Location:index.php");
+	}
+}
+		   
+		 
+		 //  if(!isset($_SESSION['role']) || $_SESSION['role']=""){
+	//		   header("location : index.php");
+	//		   }else{
+				   
+				$role = $_SESSION['role'];   
+		//		   }
 		   
 		     ?>
                
@@ -26,7 +41,7 @@
                             <!-- /input-group -->
                         </li>
                         
-                        <?php if($role == 'admin' || $role == '2' ) { ?>
+                        <?php if($role == 'admin' || $role == 'visiteur' ) { ?>
                         <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> PROJET</a>
                              <ul class="nav nav-second-level">

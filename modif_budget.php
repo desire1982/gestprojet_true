@@ -1,6 +1,6 @@
 
 <?php 
-include('/config/connectmysql.php');
+include('config/connectmysql.php');
 ?>
  
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ include('/config/connectmysql.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>GestProjet V1</title>
 
     <!-- Bootstrap Core CSS -->
     <link  href="module/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -50,7 +50,7 @@ include('/config/connectmysql.php');
 
     <div id="wrapper">
  <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
 
  <div id="page-wrapper">
@@ -68,6 +68,7 @@ include('/config/connectmysql.php');
 <p></p>
     <div class="input-group"><span class="input-group-addon" id="basic-addon1">Selectionner le projet:</span><span class="input-group-btn" id="basic-addon1"><button  id="AjoutDestination"  class="btn btn-primary">+</button></span>
  <?php 
+
  //--------requete du menu destination
 $requete1="SELECT *  FROM tbl_destination";
 $resultat1=mysql_query($requete1);
@@ -150,7 +151,18 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
   
   </div>
 <P></P>
+
+<!--Si l'Utilisateur est un visiteur on grise le bouton Valider-->
+<?php if($role == 'visiteur') { ?>
+<button  disabled id="dotation"  class="btn btn-primary">Valider</button>
+
+<?php } ?>
+
+ <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Valider-->
+<?php if($role == 'admin' || $role == 'projet' ) { ?>
 <button  id="dotation"  class="btn btn-primary">Valider</button>
+<?php } ?>
+
 </fieldset>
   <!-- /.col-lg-6 -->
    </div>

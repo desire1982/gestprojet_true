@@ -44,7 +44,7 @@
 
     <div id="wrapper">
  <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
 
  <div id="page-wrapper">
@@ -60,7 +60,7 @@
 
                 
   <?php 
-include('/config/connectmysql.php'); 
+include('config/connectmysql.php'); 
    $sql_affiche="SELECT `tbl_dossier_prjt_marche`.`Code_dossier_prjt_marche` AS CODE_DOSSIER,
    `tbl_dossier_prjt_marche`.`Code_origine_fk` AS ORIGINE, `tbl_destination`.`lib_destination` AS PROJET,
   `tbl_dossier_prjt_marche`.`Objet_prjt_mrche` AS OBJET_MARCHE, `tbl_dossier_prjt_marche`.`Attributaire_fk` AS ATTRIBUTAIRE,
@@ -306,7 +306,10 @@ $resultat_str=mysql_query($requete_str);
       
 	  </div>
       <div class="modal-footer">
-<input type="button" id="validerNiveau" class="btn btn-success" value="VALIDER"/> <input type="button" id="retour" class="btn btn-success" value="RETOUR"/>
+
+<input type="button" id="validerNiveau" class="btn btn-success" value="VALIDER"/>
+
+ <input type="button" id="retour" class="btn btn-success" value="RETOUR"/>
 </div>
 	 </div>
 	</div>

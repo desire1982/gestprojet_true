@@ -1,7 +1,7 @@
 <?php
   $msg="";
-include('/config/connect.php'); 
-  
+include('config/connect.php');
+
 if(isset($_POST['login_btn'])){
 	if(!isset($_POST['username'])||$_POST['username']== ""){
 		$msg="Veuillez renseigné le nom d'utilisateur";
@@ -30,7 +30,7 @@ if(isset($_POST['login_btn'])){
   $date_creation = $row['date_creation'];
   if($user==$username && $pass=$password){
     session_start();
-    if($type=="admin"){
+    if($type=="admin" OR $type=="visiteur" ){
       $_SESSION['nom_utilisateur']=$name;
       $_SESSION['role']=$type;
 	 
@@ -102,7 +102,7 @@ if(isset($_POST['login_btn'])){
     <div class="panel panel-default center_div" style="width:50%; padding-left: 40px; padding-right:40px; margin-left:auto; margin-right:auto;" >
       <div class="panel-body">
      
-    <h2>Login Session</h2>
+    <h2>Bienvenue</h2>
     <div class="msgerror"><?php if(isset($msg)) echo $msg  ?>  </div>
     <form role="form" method="post" class="col-lg-8" action="index.php">
       <div class="form-group">

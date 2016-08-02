@@ -1,6 +1,6 @@
 
 <?php 
-include('/config/connectmysql.php');
+include('config/connectmysql.php');
 ?>
  
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ include('/config/connectmysql.php');
     <div id="wrapper">
 
        <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
         
 
@@ -131,7 +131,18 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
   <input type="text" class="form-control " name="montant_v" id="montant_v">
   </div>
 <P></P>
+
+<!--Si l'Utilisateur est un visiteur on grise le bouton Valider-->
+<?php if($role == 'visiteur') { ?>
+<button disabled  id="dotation"  class="btn btn-primary">Valider</button>
+<?php } ?>
+
+ <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Valider-->
+<?php if($role == 'admin' || $role == 'projet' ) { ?>
 <button  id="dotation"  class="btn btn-primary">Valider</button>
+<?php } ?>
+
+
 </fieldset>
   <!-- /.col-lg-6 -->
   
