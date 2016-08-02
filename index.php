@@ -1,7 +1,7 @@
 <?php
   $msg="";
-include('/config/connect.php'); 
-  
+include('config/connect.php');
+
 if(isset($_POST['login_btn'])){
 	if(!isset($_POST['username'])||$_POST['username']== ""){
 		$msg="Veuillez renseigné le nom d'utilisateur";
@@ -30,7 +30,7 @@ if(isset($_POST['login_btn'])){
   $date_creation = $row['date_creation'];
   if($user==$username && $pass=$password){
     session_start();
-    if($type=="admin"){
+    if($type=="admin" OR $type=="visiteur" ){
       $_SESSION['nom_utilisateur']=$name;
       $_SESSION['role']=$type;
 	 
@@ -65,7 +65,7 @@ if(isset($_POST['login_btn'])){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Session</title>
+    <title>Gestion Projet</title>
  
     <!-- Bootstrap -->
     <link href="module/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -81,7 +81,7 @@ if(isset($_POST['login_btn'])){
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <style>
+        <style>
     
     .center_div{
     margin: 0 auto;
@@ -100,9 +100,11 @@ if(isset($_POST['login_btn'])){
  
    
     <div class="panel panel-default center_div" style="width:50%; padding-left: 40px; padding-right:40px; margin-left:auto; margin-right:auto;" >
-      <div class="panel-body">
+
+      <div class="panel-body center_body">
      
-    <h2>Login Session</h2>
+    <h2>Bienvenue</h2>
+    <hr>
     <div class="msgerror"><?php if(isset($msg)) echo $msg  ?>  </div>
     <form role="form" method="post" class="col-lg-8" action="index.php">
       <div class="form-group">
@@ -137,7 +139,7 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
  
       </div>
       
-      <button type="submit" name="login_btn" class="btn btn-primary">Login</button>
+      <button type="submit" name="login_btn" class="btn btn-primary" style="width:100px">Login</button>
     </form>
        
       </div>

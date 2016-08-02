@@ -1,5 +1,5 @@
 <?php 
-include('/config/connectmysql.php');
+include('config/connectmysql.php');
 ?>
  
 <!DOCTYPE html>
@@ -46,7 +46,7 @@ include('/config/connectmysql.php');
 
     <div id="wrapper">
  <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
 
  <div id="page-wrapper">
@@ -123,9 +123,27 @@ $resultat2=mysql_query($requete2);
 <P></P>
 <input type="text" class="form-control " name="type_notif" id="type_notif" >
 
+<!--Si l'Utilisateur est un visiteur on grise le bouton Valider-->
+<?php if($role == 'visiteur') { ?>
+<button disabled  id="visualiser"  class="btn btn-primary" style=" margin-right:10px">Visualiser</button>
+ 
+ <a  target="_blank"  class="btn btn-success" onclick="reportPdf()">PDF</a>
+
+<button  disabled  id="affich_pdf"  class="btn btn-primary">PDF</button>
+
+<?php } ?>
+
+ <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Valider-->
+<?php if($role == 'admin' || $role == 'projet' ) { ?>
 <button  id="visualiser"  class="btn btn-primary" style=" margin-right:10px">Visualiser</button>
-<a target="_blank"  class="btn btn-success" onclick="reportPdf()">PDF</a>
+ 
+ <a target="_blank"  class="btn btn-success" onclick="reportPdf()">PDF</a>
+
 <button   id="affich_pdf"  class="btn btn-primary">PDF</button>
+<?php } ?>
+
+
+
 
 <!-- /.col-lg-6 -->  
    </div>

@@ -43,7 +43,7 @@
     <div id="wrapper">
 
        <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
         
 
@@ -55,6 +55,8 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            
+            <!-- Page d'acceuil -->
             <?php if($role == 'admin' || $role == '2' ) { ?>
             <div class="row">
             
