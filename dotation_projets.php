@@ -1,6 +1,6 @@
 
 <?php 
-include('/config/connectmysql.php');
+include('config/connectmysql.php');
 ?>
  
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ include('/config/connectmysql.php');
     <div id="wrapper">
 
        <?php 
-	  include('/menu/menu.php'); 
+	  include('menu/menu.php'); 
 	   ?>
         
 
@@ -60,11 +60,11 @@ include('/config/connectmysql.php');
   <p></p>
   
     <fieldset class="form-group">
-    <label for="dotation">Dotation</label>
+   
     <div class="input-group"><span class="input-group-addon" id="basic-addon1">Selectionner le projet:</span><span class="input-group-btn" id="basic-addon1"><button  id="AjoutDestination"  class="btn btn-primary">+</button></span>
  <?php 
  //--------requete du menu destination
-$requete1="SELECT *  FROM tbl_destination";
+$requete1="SELECT *  FROM tbl_destination ORDER BY destination ASC";
 $resultat1=mysql_query($requete1);
 
  //--------requete du menu nature
@@ -152,7 +152,7 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 
 
 
-     <!--MODAL PARA MOSTRAR EL DESTINATION -->
+     <!--FENETRE MODALE DE DESTINATION -->
      <div class="modal fade" id="ajoutDest_M" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
              <div class="modal-content">
@@ -186,7 +186,7 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 
 
 
-     <!--MODAL PARA MOSTRAR EL NATURE -->
+     <!--FENETRE MODALE DE NATURE -->
 
 
 
@@ -199,19 +199,22 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
                      <h4 class="modal-title" id="myModalLabel"> <b> FICHE DES NATURES </b> </h4>
                  </div>
+                 
                  <div class="modal-body" id="ajoutNature_body">
 
-
+                           <!-- Nav tabs -->
+                           
                      <ul class="nav nav-tabs">
                          <li role="presentation" class="active"><a data-toggle="tab" href="#Nature">Nature</a>
 </li>
                          <li role="presentation"><a data-toggle="tab" href="#Recherche">Recherche</a></li>
-                         <li role="presentation"><a data-toggle="tab" href="#">Messages</a></li>
+                         <li role="presentation"><a data-toggle="tab" href="#Message">Messages</a></li>
                      </ul>
 
-
+                        <!-- Tab panes -->
                      <div class="tab-content">
 
+                     <!-- Tab panes Nature -->  
                          <div id="Nature" class="tab-pane fade in active">
                              <div class="row">
                                  <div class="col-md-4">
@@ -230,14 +233,14 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
                                  </div>
                                      <div class="row">
                                          <div class="col-md-8 col-md-offset-4">
-                     <input type="submit" value="enregistrer" class="btn btn-warning" id="enr_nature"/>
+                     <input type="submit" value="enregistrer" class="btn btn-success" id="enr_nature"/>
                                          </div>
                                       </div>
 
 
                          </div>
 
-
+                          <!-- Tab panes Recherche -->  
 
 
                          <div id="Recherche" class="tab-pane fade">
@@ -249,10 +252,27 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
                                  <label for="Lib_nature"><span class="glyphicon glyphicon-eye-open"></span> Libelle</label>
                                  <input type="text" class="form-control" id="lib_nature" name="lib_nature" placeholder="entrer le libelle">
                              </div>
-                             <input type="submit" value="rechercher" class="btn btn-warning" id="enr_nature"/>
+                             <input type="submit" value="rechercher" class="btn btn-success" id="enr_nature"/>
 
 
                          </div>
+                         
+                         
+                      <!-- Tab panes Message -->    
+                         <div id="Message" class="tab-pane fade">
+                             <div class="form-group">
+                                 <label for="nature"><span class="glyphicon glyphicon-user"></span>Message</label>
+                                 <input type="text" class="form-control" id="id_nature" name="id_nature" placeholder="Enter la nature">
+                             </div>
+                             <div class="form-group">
+                                 <label for="Lib_nature"><span class="glyphicon glyphicon-eye-open"></span> Libelle</label>
+                                 <input type="text" class="form-control" id="lib_nature" name="lib_nature" placeholder="entrer le libelle">
+                             </div>
+                             <input type="submit" value="rechercher" class="btn btn-success" id="enr_nature"/>
+
+
+                         </div>
+                         
                      </div>
 
 
@@ -318,25 +338,26 @@ var lib_destination = document.getElementById('lib_destination').value;
             data:'destinati='+destinati+'&lib_destination='+lib_destination,
             success:function(resultat){
 
-                $.ajax({
-                    url: 'php/refresh_destination.php',
-                    success: function(data) {
-                      // $('#destination option').remove();
-                        var resultatObj = JSON.parse(data);
+           //     $.ajax({
+           //         url: 'php/refresh_destination.php',
+            //        success: function(data) {
+                   
+                        var resultatObj = JSON.parse(resultat);
 
                         $.each(resultatObj,function(key,val){
                        // console.log(val.destination);
                        $('#destination').append('<option value="'+val.destination+'">'+ val.lib_destination +'</option>');
-                        });
-                    }
+                       });
+                   
+				 
+				 
+				 
+				 
+				 //  $('#destination').append(
+     //   $('<option></option>').html(resultat)
+   //  );   
+				    }
                 });
-
-                $("#destination").removeAttr('selected').find('option:first').attr('selected','selected')
-            }
-
-
-
-        })
     });
 
 
@@ -389,8 +410,7 @@ var lib_destination = document.getElementById('lib_destination').value;
     });
 
 
-// tab de nature
-
+//Activation de l'onglet Nature 
 
     $('.nav-tabs a').click(function (e) {
         e.preventDefault()
