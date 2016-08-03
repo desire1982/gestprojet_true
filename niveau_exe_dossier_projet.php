@@ -45,6 +45,8 @@
     <div id="wrapper">
  <?php 
 	  include('menu/menu.php'); 
+	  $role = $_SESSION['role'];
+	 // echo $role;
 	   ?>
 
  <div id="page-wrapper">
@@ -140,6 +142,7 @@ FROM `tbl_destination`
 		 $item=$item + 1;   
 	   ?> 
  <tr> 
+ 
  <td><?php echo $item; ?> </td>     
 <td><?php echo $donnee['CODE_DOSSIER']; ?> </td>
 <td><?php echo $donnee['ORIGINE']; ?></td>
@@ -147,8 +150,12 @@ FROM `tbl_destination`
 <td><?php echo $donnee['OBJET_MARCHE']; ?></td>
 <td><?php echo $donnee['ATTRIBUTAIRE']; ?></td>
 <td><span class="badge"><?php echo number_format($donnee['MONTANT_MARCHE'],0,","," "); ?></span></td>
-<td><input type="button" class="btn btn-success" value="NIVEAU EXECUTION" onclick="NiveauExecution('<?php echo $donnee['CODE_DOSSIER']; ?>')"></td>
-<td><input type="button" class="btn btn-success" value="DETAIL" onclick="afficheDetailDossier('<?php echo $donnee['CODE_DOSSIER']; ?>')"></td> 
+<td><input  id="niveau" type="button" class="btn btn-success" value="NIVEAU EXECUTION" onclick="NiveauExecution('<?php echo $donnee['CODE_DOSSIER']; ?>')"></td>
+<td><input id="details"  type="button" class="btn btn-success" value="DETAIL" onclick="afficheDetailDossier('<?php echo $donnee['CODE_DOSSIER']; ?>')">
+
+<!-- Recuperer la valeur de la session Utilisateur dans un boutons caché pour activer ou desactiver le bouton du niveau execution-->
+<input type="hidden" name="id_role" id="id_role" value="<?php echo $role ?>" /> 
+</td> 
 </tr>
 
    <?php 
@@ -642,6 +649,22 @@ return false;
 	document.getElementById('sourceStructure').value="";
 	document.getElementById('date_dossier').value="";
 	document.getElementById('observation').value="";
+	//document.getElementById('retour_niveauExe').disabled;
+	
+	
+	
+	var role = document.getElementById('id_role').value;
+	
+	alert(role);
+	
+	if (role == 'visiteur') {
+		
+		$('#retour_niveauExe').attr('disabled', true); // Desactiver le bouton retour
+		} else{
+			
+			$('#retour_niveauExe').removeAttr('disabled');
+			}
+	
 	//  $('#niveauExecution')[0].reset();
 	  
 			 $('#niveauExecution').modal({
@@ -650,6 +673,7 @@ return false;
 				 
 		 });
  }
+
 
 
 // BOUTON RETOUR
@@ -751,6 +775,9 @@ return false;
 	 });
 	 return false;
  }
+	
+	
+	
 	
 	
 	
