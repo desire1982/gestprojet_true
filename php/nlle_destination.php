@@ -13,9 +13,21 @@ $nombre = mysql_num_rows($resultat);
 
 if($nombre == 0){
     $sql_insert="INSERT INTO tbl_destination(destination, lib_destination) VALUES('$destination','$libelle_destination')";
-    mysql_query("$sql_insert");
+   $result=mysql_query("$sql_insert");
+	
+	$sql_enr ="SELECT * FROM tbl_destination WHERE destination ='$destination'";
+	
+	$resultat1=mysql_query("$sql_enr");
+	$tabdata = array();
 
-    echo('bien');
+while ($row = mysql_fetch_assoc($resultat1)) {
+    $tabdata[] = $row;
+   // print_r($tabdata);
+}
+
+echo json_encode($tabdata);
+
+  //  echo('bien');
 //$_SESSION['code_projet']=$code_projet;
 //$_SESSION['source_financement']=$source_financement;
 
