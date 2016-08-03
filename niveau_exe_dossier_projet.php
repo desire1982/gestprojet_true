@@ -45,6 +45,8 @@
     <div id="wrapper">
  <?php 
 	  include('menu/menu.php'); 
+	  $role = $_SESSION['role'];
+	 // echo $role;
 	   ?>
 
  <div id="page-wrapper">
@@ -54,20 +56,68 @@
  
  <table width="200" border="1">
   <tr>
-      <td><button disabled  id="nouveau_financement"  class="btn btn-primary">FINANCEMENT</button></td>
+      <td><button disabled  id="nouveau_financement"  class="btn btn-primary">FINANCEMENT</button></td><td><button  id="rech_dossier"  class="btn btn-primary">RECHERCHER</button></td>
   </tr>
 </table>
 
                 
   <?php 
+  
+  
 include('config/connectmysql.php'); 
+
+
+// Nombre de dossier
+$totalParPages= 2;
+$sql="SELECT COUNT(*) AS total,
+  `tbl_dossier_prjt_marche`.`Code_dossier_prjt_marche` AS `CODE_DOSSIER`,
+  `tbl_dossier_prjt_marche`.`Code_origine_fk` AS `ORIGINE`,
+  `tbl_destination`.`lib_destination` AS `PROJET`,
+  `tbl_dossier_prjt_marche`.`Objet_prjt_mrche` AS `OBJET_MARCHE`,
+  `tbl_dossier_prjt_marche`.`Attributaire_fk` AS `ATTRIBUTAIRE`,
+  `tbl_dossier_prjt_marche`.`Montant_projet_mrche` AS `MONTANT_MARCHE`,
+  `tbl_dossier_prjt_marche`.`financement` AS `TYPE_FINANCEMENT`,
+  `tbl_dossier_prjt_marche`.`Date_reception` AS `DATE_RECEPTION_DOSSIER`,
+  `tbl_dossier_prjt_marche`.`Etat_dossier`
+FROM
+  `tbl_destination`
+  INNER JOIN `tbl_dossier_prjt_marche` ON (`tbl_destination`.`destination` = `tbl_dossier_prjt_marche`.`Destination_fk`)";
+ 
+ 
+$resultNombreTotal = mysql_query("$sql");
+
+$TotalPageReq= mysql_fetch_array($resultNombreTotal);
+$totalDossier= $TotalPageReq['total'];
+
+//$totalArticles = mysql_num_rows($resultNombreTotal);
+ //echo $totalFournisseur;
+$nbPages= ceil($totalDossier/$totalParPages);
+if(isset($_GET['page']) and !empty($_GET['page']) and $_GET['page']>0 and $_GET['page']<= $nbPages){
+$_GET['page'] = intval($_GET['page']);
+$pageCourante = $_GET['page'];	
+} else {
+$pageCourante = 1;	
+	}
+$depart=($pageCourante-1)* $totalParPages;
+
+
+ 
+// if(!isset($_SESSION['login']))
+//{
+ //header("Location:index.php");
+//}
+ 
+//fetching data in descending order (lastest entry first)
    $sql_affiche="SELECT `tbl_dossier_prjt_marche`.`Code_dossier_prjt_marche` AS CODE_DOSSIER,
    `tbl_dossier_prjt_marche`.`Code_origine_fk` AS ORIGINE, `tbl_destination`.`lib_destination` AS PROJET,
   `tbl_dossier_prjt_marche`.`Objet_prjt_mrche` AS OBJET_MARCHE, `tbl_dossier_prjt_marche`.`Attributaire_fk` AS ATTRIBUTAIRE,
   `tbl_dossier_prjt_marche`.`Montant_projet_mrche` AS MONTANT_MARCHE, `tbl_dossier_prjt_marche`.`financement` AS TYPE_FINANCEMENT,
   `tbl_dossier_prjt_marche`.`Date_reception` AS DATE_RECEPTION_DOSSIER, `tbl_dossier_prjt_marche`.`Etat_dossier` AS ETAT_DOSSIER
 FROM `tbl_destination`
-  INNER JOIN `tbl_dossier_prjt_marche` ON (`tbl_destination`.`destination` = `tbl_dossier_prjt_marche`.`Destination_fk`)";
+  INNER JOIN `tbl_dossier_prjt_marche` ON (`tbl_destination`.`destination` = `tbl_dossier_prjt_marche`.`Destination_fk`) ORDER BY `tbl_dossier_prjt_marche`.`Code_dossier_prjt_marche` ASC LIMIT ".$depart.", ".$totalParPages."";
+  
+  $result = mysql_query("$sql_affiche");
+  
   ?>              
                 
       <div id="affiche_destination" >  
@@ -92,6 +142,7 @@ FROM `tbl_destination`
 		 $item=$item + 1;   
 	   ?> 
  <tr> 
+ 
  <td><?php echo $item; ?> </td>     
 <td><?php echo $donnee['CODE_DOSSIER']; ?> </td>
 <td><?php echo $donnee['ORIGINE']; ?></td>
@@ -99,8 +150,12 @@ FROM `tbl_destination`
 <td><?php echo $donnee['OBJET_MARCHE']; ?></td>
 <td><?php echo $donnee['ATTRIBUTAIRE']; ?></td>
 <td><span class="badge"><?php echo number_format($donnee['MONTANT_MARCHE'],0,","," "); ?></span></td>
-<td><input type="button" class="btn btn-success" value="NIVEAU EXECUTION" onclick="NiveauExecution('<?php echo $donnee['CODE_DOSSIER']; ?>')"></td>
-<td><input type="button" class="btn btn-success" value="DETAIL" onclick="afficheDetailDossier('<?php echo $donnee['CODE_DOSSIER']; ?>')"></td> 
+<td><input  id="niveau" type="button" class="btn btn-success" value="NIVEAU EXECUTION" onclick="NiveauExecution('<?php echo $donnee['CODE_DOSSIER']; ?>')"></td>
+<td><input id="details"  type="button" class="btn btn-success" value="DETAIL" onclick="afficheDetailDossier('<?php echo $donnee['CODE_DOSSIER']; ?>')">
+
+<!-- Recuperer la valeur de la session Utilisateur dans un boutons caché pour activer ou desactiver le bouton du niveau execution-->
+<input type="hidden" name="id_role" id="id_role" value="<?php echo $role ?>" /> 
+</td> 
 </tr>
 
    <?php 
@@ -115,7 +170,36 @@ FROM `tbl_destination`
 </table>
 </div>
 
-                  
+     <!-- Debut pagination-->
+ <div class="centrerpagination"> 
+<ul class="pagination">
+<li class="<?php if($pageCourante=='1'){ echo "disabled"; } ?>">
+<a href="?page=<?php if($pageCourante != '1') { echo $pageCourante - 1; } else{  echo $pageCourante; } ?>"> &laquo; </a> </li>  
+   <?php 
+  
+for($i=1; $i<=$nbPages ; $i++){
+    if($i== $pageCourante) {
+		?>
+ 
+ <li class="active"><a href="?page=<?php echo $i ?>"> <?php echo $i ?> </a> </li>
+ <?php
+	} else {
+		?>
+      <li><a href="?page=<?php echo $i ?>"> <?php echo $i ?> </a> </li>  
+		
+      <?php
+	}
+}
+?>
+  
+<li class="<?php if($pageCourante==$nbPages){ echo "disabled"; } ?>">
+<a href="?page=<?php if($pageCourante != $nbPages) { echo $pageCourante + 1; } else{  echo $pageCourante; } ?>"> &raquo; </a> </li>
+        
+</ul>	
+
+</div>
+
+<!--Fin pagination -->              
                 
           
         </div>
@@ -306,10 +390,7 @@ $resultat_str=mysql_query($requete_str);
       
 	  </div>
       <div class="modal-footer">
-
-<input type="button" id="validerNiveau" class="btn btn-success" value="VALIDER"/>
-
- <input type="button" id="retour" class="btn btn-success" value="RETOUR"/>
+<input type="button" id="validerNiveau" class="btn btn-success" value="VALIDER"/> <input type="button" id="retour_niveauExe" class="btn btn-success" value="RETOUR"/>
 </div>
 	 </div>
 	</div>
@@ -327,7 +408,7 @@ $resultat_str=mysql_query($requete_str);
 	  <div class="modal-body" id="resultDossier">
 	  </div>
       <div class="modal-footer">
-<input type="button" id="retour" class="btn btn-default" value="RETOUR"/>
+<input type="button" id="retour_detail_niveau" class="btn btn-default" value="RETOUR"/>
 </div>
 	 </div>
 	</div>
@@ -561,13 +642,27 @@ return false;
 // FONCTION NIVEAU D'EXECUTION DES DOSSIERS
 
  function NiveauExecution(codeDossier){
-	 alert(codeDossier);
 	 //Insertion du code dossier dans le champ code dossier de la fenetre modale
 	  document.getElementById('code_dossier').value=codeDossier;
 	 document.getElementById('Etat_dossier').value="";
 	document.getElementById('sourceStructure').value="";
 	document.getElementById('date_dossier').value="";
 	document.getElementById('observation').value="";
+	
+	//recuperation de la valeur de la session pour activer ou desactiver le bouton Valider
+		var role = document.getElementById('id_role').value;
+	
+	
+	if (role == 'visiteur') {
+		
+		//$('#retour_niveauExe').attr('disabled', true); // Desactiver le bouton retour
+		$('#validerNiveau').attr('disabled', true); // Desactiver le bouton Valider
+		} else{
+			
+			//$('#retour_niveauExe').removeAttr('disabled');
+			$('#validerNiveau').removeAttr('disabled');
+			}
+	
 	//  $('#niveauExecution')[0].reset();
 	  
 			 $('#niveauExecution').modal({
@@ -578,11 +673,22 @@ return false;
  }
 
 
+
 // BOUTON RETOUR
 	$('#retour').on('click', function(){
 	location.href=document.URL;	
 		})
     
+	// BOUTON RETOUR NIVEAU D'EXECUTION
+	$('#retour_niveauExe').on('click', function(){
+	location.href=document.URL;	
+		})
+	
+	// BOUTON RETOUR DETAIL NIVEAU D'EXECUTION
+	$('#retour_detail_niveau').on('click', function(){
+	location.href=document.URL;	
+		})
+	
 	
 	$('#validerNiveau').on('click', function(){
 		
@@ -667,6 +773,9 @@ return false;
 	 });
 	 return false;
  }
+	
+	
+	
 	
 	
 	

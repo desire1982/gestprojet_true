@@ -74,7 +74,7 @@
                                     <a href="detailsdotation_projets.php">Details dotation</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="#"></a>
                                 </li>
                                 
                             </ul>
@@ -87,13 +87,13 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Suivi projet de marche<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Origine</a>
+                                    <a href="#">Origine</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Structure</a>
+                                    <a href="#">Structure</a>
                                 </li>
                                 <li>
-                                    <a href="notifications.html">Dossier de marche</a>
+                                    <a href="#">Dossier de marche</a>
          
                                     <ul class="nav nav-third-level">
                                         <li>
@@ -139,10 +139,10 @@
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="blank.html">Blank Page</a>
+                                    <a href="#">Blank Page</a>
                                 </li>
                                 <li>
-                                    <a href="login.html">Login Page</a>
+                                    <a href="#">Login Page</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
