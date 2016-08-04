@@ -40,6 +40,22 @@ include('config/connectmysql.php');
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style type="text/css">
+	
+.object_ok
+{
+border: 1px solid green; 
+color: #333333; 
+}
+ 
+.object_error
+{
+border: 1px solid #AC3962; 
+color: #333333; 
+}
+	</style>
+    
 
 </head>
 
@@ -232,6 +248,7 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
                      <div class="form-group">
                          <label for="nature"><span class="glyphicon glyphicon-user"></span> Nature</label>
                          <input type="text" class="form-control" id="id_nature" name="id_nature" placeholder="Enter la nature">
+                         <div width="400" align="left" id="status"></div>
                      </div>
                                  </div>
                                  <div class="col-md-4">
@@ -320,7 +337,12 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     
+    
+    
 <script type="text/javascript">
+pic1 = new Image(16, 16); 
+pic1.src = "images/loader.gif";
+
 $(function(){
 
     //Click du bouton Ajout destination
@@ -521,6 +543,54 @@ $(document).on("click", ".supprimer", function(){
 	});
 
 
+// Verification de la disponiblité de la nature de depense dans la base
+
+$("#id_nature").change(function() {
+
+ 
+var ntr = $("#id_nature").val();
+ alert(ntr);
+if(ntr.length >= 4)
+{
+$("#status").html('<img src="images/loader.gif" align="absmiddle">&nbsp;Checking availability...');
+ 
+    $.ajax({  
+    type: "POST",  
+    url: "php/verif_nature.php",  
+    data: "ntr="+ntr,  
+    success: function(msg){  
+    
+   $("#status").ajaxComplete(function(event, request, settings){ 
+ 
+    if(msg == 'OK')
+    { 
+        $("#id_nature").removeClass('object_error'); // if necessary
+        $("#id_nature").addClass("object_ok");
+        $(this).html('&nbsp;<img src="images/tick.gif" align="absmiddle">');
+    }  
+    else 
+    {  
+        $("#id_nature").removeClass('object_ok'); // if necessary
+        $("#id_nature").addClass("object_error");
+        $(this).html(msg);
+    }  
+    
+   });
+ 
+ } 
+    
+  }); 
+ 
+}
+else
+    {
+    $("#status").html('<font color="red">' +
+'The username should have at least <strong>4</strong> characters.</font>');
+    $("#username").removeClass('object_ok'); // if necessary
+    $("#username").addClass("object_error");
+    }
+ 
+});
 
 
 
