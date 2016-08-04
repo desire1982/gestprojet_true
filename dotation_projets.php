@@ -23,10 +23,10 @@ include('config/connectmysql.php');
     <link href="menu/css/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
+  <!--  <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+-->
     <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+   <!-- <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">-->
 
     <!-- Custom CSS -->
     <link href="menu/css/sb-admin-2.css" rel="stylesheet">
@@ -179,131 +179,13 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 
 
 
-     <!--FENETRE MODALE DE DESTINATION -->
-     <div class="modal fade" id="ajoutDest_M" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
-                     <h4 class="modal-title" id="myModalLabel"> <b> FICHE DES SOURCES DE FINANCEMENT </b> </h4>
-                 </div>
-                 <div class="modal-body" id="ajoutDestination_body">
 
-                             <div class="form-group">
-                             <label for="destination"><span class="glyphicon glyphicon-user"></span> Destination</label>
-                             <input type="text" class="form-control" id="id_destination" name="id_destination" placeholder="Enter la destination">
-                         </div>
-                         <div class="form-group">
-                             <label for="Lib_dest"><span class="glyphicon glyphicon-eye-open"></span> Libelle</label>
-                             <input type="text" class="form-control" id="lib_destination" name="lib_destination" placeholder="entrer le libelle">
-                         </div>
-                         <input type="submit" value="enregistrer" class="btn btn-warning" id="enr_dest"/>
-                        <!-- <input type="submit" value="editer" class="btn btn-warning" id="edi"/> -->
-
-
-
-
-                 </div>
-             </div>
-         </div>
-     </div>
-
-
-
-
-
-
-     <!--FENETRE MODALE DE NATURE -->
-
-
-
-
-
-     <div class="modal fade" id="ajoutNAT_M" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
-                     <h4 class="modal-title" id="myModalLabel"> <b> FICHE DES NATURES </b> </h4>
-                 </div>
-                 
-                 <div class="modal-body" id="ajoutNature_body">
-
-                           <!-- Nav tabs -->
-                           
-                     <ul class="nav nav-tabs">
-                         <li role="presentation" class="active"><a data-toggle="tab" href="#Nature">Nature</a>
-</li>
-                         <li role="presentation"><a data-toggle="tab" href="#Recherche">Recherche</a></li>
-                         <li role="presentation"><a data-toggle="tab" href="#Message">Messages</a></li>
-                     </ul>
-
-                        <!-- Tab panes -->
-                     <div class="tab-content">
-
-                     <!-- Tab panes Nature -->  
-                         <div id="Nature" class="tab-pane fade in active">
-                             <div class="row">
-                                 <div class="col-md-4">
-                     <div class="form-group">
-                         <label for="nature"><span class="glyphicon glyphicon-user"></span> Nature</label>
-                         <input type="text" class="form-control" id="id_nature" name="id_nature" placeholder="Enter la nature">
-                         <div width="400" align="left" id="status"></div>
-                     </div>
-                                 </div>
-                                 <div class="col-md-4">
-                     <div class="form-group">
-                         <label for="Lib_nature"><span class="glyphicon glyphicon-eye-open"></span> Libelle</label>
-                         <input type="text" class="form-control" id="lib_nature" name="lib_nature" placeholder="entrer le libelle">
-                     </div>
-                                 </div>
-
-                                 </div>
-                                     <div class="row">
-                                         <div class="col-md-8 col-md-offset-4">
-                     <input type="submit" value="enregistrer" class="btn btn-success" id="enr_nature"/>
-                                         </div>
-                                      </div>
-
-
-                         </div>
-
-                          <!-- Tab panes Recherche -->  
-
-
-                         <div id="Recherche" class="tab-pane fade">
-                             <div class="form-group">
-                                 <label for="nature"><span class="glyphicon glyphicon-user"></span> Nature</label>
-                                 <input type="text" class="form-control" id="id_nature" name="id_nature" placeholder="Enter la nature">
-                             </div>
-                             <div class="form-group">
-                                 <label for="Lib_nature"><span class="glyphicon glyphicon-eye-open"></span> Libelle</label>
-                                 <input type="text" class="form-control" id="lib_nature" name="lib_nature" placeholder="entrer le libelle">
-                             </div>
-                             <input type="submit" value="rechercher" class="btn btn-success" id="enr_nature"/>
-
-
-                         </div>
-                         
-                         
-                      <!-- Tab panes Message -->    
-                         <div id="Message" class="tab-pane fade">
-                             <div class="form-group">
-                                 <label for="nature"><span class="glyphicon glyphicon-user"></span>Message</label>
-                                 <input type="text" class="form-control" id="id_nature" name="id_nature" placeholder="Enter la nature">
-                             </div>
-                             <div class="form-group">
-                                 <label for="Lib_nature"><span class="glyphicon glyphicon-eye-open"></span> Libelle</label>
-                                 <input type="text" class="form-control" id="lib_nature" name="lib_nature" placeholder="entrer le libelle">
-                             </div>
-                             <input type="submit" value="rechercher" class="btn btn-success" id="enr_nature"/>
-
-
-                         </div>
-                         
-                     </div>
-
-
+<!--  Fenetre modale Destination et Nature  -->
+<?php  
+ 
+include('modale/destination_ajout.php');
+include('modale/nature_ajout.php');
+?>
 
 
 
@@ -340,8 +222,7 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
     
     
 <script type="text/javascript">
-pic1 = new Image(16, 16); 
-pic1.src = "images/loader.gif";
+
 
 $(function(){
 
@@ -410,7 +291,7 @@ var lib_destination = document.getElementById('lib_destination').value;
     //Bouton enregistrer de la fenetre modale
 
     $('#enr_nature').on('click', function(){
-        alert('vous ete le meme')
+       // alert('Vous avez taper le bouton Nature')
         var nature = document.getElementById('id_nature').value;
         var lib_nature = document.getElementById('lib_nature').value;
 
@@ -420,24 +301,26 @@ var lib_destination = document.getElementById('lib_destination').value;
             url:'php/nlle_nature.php',
             data:'nature='+nature+'&lib_nature='+lib_nature,
             success:function(resultat){
-                $('#destination option').remove();
-                $.ajax({
-                    url: 'php/refresh_nature.php',
-                    success: function(data) {
-                         
-                        var resultatObjNature = JSON.parse(data);
+            
+                  //Si la nature n'exite pas 
+				  
+				  if( resultat != 'existe'){       
+                        var resultatObjNature = JSON.parse(resultat);
 
                         $.each(resultatObjNature,function(key,val){
-                            // console.log(val.destination);
-                            $('#nature').append('<option value="'+val.id_nature+'">'+ val.lib_nature +'</option>');
-                        });
-                    }
+                            
+                            $('#nature').append('<option value="'+val.id_nature+'">'+val.id_nature+ ' - ' + val.lib_nature +'</option>');
+                   
                 });
 
              //   $("#destination").removeAttr('selected').find('option:first').attr('selected','selected')
-            }
+           
+		    }else{
+				$('#message_nature').html('<p class="alert alert-warning"> L\'enregistrement existe dans la base </p>');
+				
+				}
 
-
+			}
 
         })
     });
@@ -543,59 +426,48 @@ $(document).on("click", ".supprimer", function(){
 	});
 
 
-// Verification de la disponiblité de la nature de depense dans la base
-
-$("#id_nature").change(function() {
-
- 
-var ntr = $("#id_nature").val();
- alert(ntr);
-if(ntr.length >= 4)
-{
-$("#status").html('<img src="images/loader.gif" align="absmiddle">&nbsp;Checking availability...');
- 
-    $.ajax({  
-    type: "POST",  
-    url: "php/verif_nature.php",  
-    data: "ntr="+ntr,  
-    success: function(msg){  
-    
-   $("#status").ajaxComplete(function(event, request, settings){ 
- 
-    if(msg == 'OK')
-    { 
-        $("#id_nature").removeClass('object_error'); // if necessary
-        $("#id_nature").addClass("object_ok");
-        $(this).html('&nbsp;<img src="images/tick.gif" align="absmiddle">');
-    }  
-    else 
-    {  
-        $("#id_nature").removeClass('object_ok'); // if necessary
-        $("#id_nature").addClass("object_error");
-        $(this).html(msg);
-    }  
-    
-   });
- 
- } 
-    
-  }); 
- 
-}
-else
-    {
-    $("#status").html('<font color="red">' +
-'The username should have at least <strong>4</strong> characters.</font>');
-    $("#username").removeClass('object_ok'); // if necessary
-    $("#username").addClass("object_error");
-    }
- 
-});
 
 
 
 
 })
+
+
+// Verification de la disponiblité de la nature de depense dans la base
+
+function verifnature()
+    {
+	
+	   var ntr=document.getElementById( "id_nature" ).value;
+	
+	   if(ntr)
+	   {
+	        $.ajax({
+			   type: 'post',
+			   url: 'php/verif_nature.php',
+			   data: {
+			   ntr:ntr,
+			   },
+			   success: function (response) {
+			   $( '#name_status' ).html(response);
+  		          if(response=="OK")	
+                  {
+                     return true;	
+                  }
+                  else
+                  {
+                     return false;	
+                  }
+                }
+		      });
+	
+	   }
+	   else
+	   {
+		   $( '#name_status' ).html("");
+		   return false;
+	   }
+	}
 
 
 </script>
