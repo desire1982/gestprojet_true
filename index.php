@@ -83,27 +83,42 @@ if(isset($_POST['login_btn'])){
     
         <style>
     
-    .center_div{
-   /* margin: 0 auto;
-    width:80%; /* value of your choice which suits your alignment */
-	/*background-color:#033;*/
-	
+    .center_div{	
+/* Centrer le formulaire horizontalement et verticalement */	
+	position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
+
+.center_panel{
+	/* Mettre la couleur du cadre */
+	background-color:#0C9;
+
+	
+	}
+
+
+body{
+	/* Couleur d'arriere plan de la page */
+	/*background-color:#CCC;*/
+	background-image:url(images/arr_connex.jpg);
+
+	}
     
     </style>
   </head>
   <body>
-  <p>
-</p>
-  <div class="container center_div">
-   <div class="row">
+  
+  <div class="container ">
+   <div class="row center_div">
     
-    <div class="col-lg-8">
+    <div class="col-lg-12 ">
  <marquee direction="left" behavior="alternate" style="color:#C30">Le site Web sera bientôt ouvert au public</marquee>
    
-    <div class="panel panel-default center_div" >
+    <div class="panel panel-default center_panel " >
 
-      <div class="panel-body center_body">
+      <div class="panel-body ">
      
     <h2 align="center" style="color:#030">Bienvenue sur l'intranet de la DAF</h2>
     <hr>
@@ -150,10 +165,10 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
      </div>
      </div>
      <!-- Fin col-lg-8 -->
-     <div class="col-lg-4">
-     
+     <!--<div class="col-lg-3" style="background-color:#FFF; border:1 solid #933; height:250px">
+     ddddd
     
-     </div>
+     </div>-->
      
      </div>
      <!-- Fin row -->
