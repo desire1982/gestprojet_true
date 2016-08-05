@@ -84,7 +84,7 @@ if(isset($_POST['login_btn'])){
         <style>
     
     .center_div{
-    margin: 0 auto;
+   /* margin: 0 auto;
     width:80%; /* value of your choice which suits your alignment */
 	/*background-color:#033;*/
 	
@@ -96,26 +96,28 @@ if(isset($_POST['login_btn'])){
   <p>
 </p>
   <div class="container center_div">
+   <div class="row">
+    
+    <div class="col-lg-8">
+ <marquee direction="left" behavior="alternate" style="color:#C30">Le site Web sera bientôt ouvert au public</marquee>
    
- 
-   
-    <div class="panel panel-default center_div" style="width:50%; padding-left: 40px; padding-right:40px; margin-left:auto; margin-right:auto;" >
+    <div class="panel panel-default center_div" >
 
       <div class="panel-body center_body">
      
-    <h2>Bienvenue</h2>
+    <h2 align="center" style="color:#030">Bienvenue sur l'intranet de la DAF</h2>
     <hr>
     <div class="msgerror"><?php if(isset($msg)) echo $msg  ?>  </div>
-    <form role="form" method="post" class="col-lg-8" action="index.php">
+    <form role="form" method="post" class="col-lg-6" action="index.php">
       <div class="form-group">
- <label for="username">Nom utilisateur</label>
+ <label for="username" style="color:#060">Nom utilisateur</label>
  <div class="input-group input-group-sm">
  <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
  <input type="text" class="form-control" id="username" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username']  ?>">
       </div>
       </div>
       <div class="form-group">
- <label for="password">Mot de passe</label>
+ <label for="password" style="color:#060">Mot de passe</label>
  <div class="input-group input-group-sm">
  <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
  <input type="password" class="form-control" id="password" name="password">
@@ -125,7 +127,7 @@ if(isset($_POST['login_btn'])){
       <div class="form-group">
  
  
- <label for="type">Type</label>
+ <label for="type" style="color:#060">Type</label>
  <select name="type" id="type" class="form-control" >
  <?php $res_menu = $mysqli->query("SELECT statut FROM tbl_user GROUP BY statut");
 while ($row_menu = $res_menu->fetch_assoc()){ ?>
@@ -139,13 +141,24 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
  
       </div>
       
-      <button type="submit" name="login_btn" class="btn btn-primary" style="width:100px">Login</button>
+      <button type="submit" name="login_btn" class="btn btn-primary" style="width:100px">Login</button><br>
+     <p></p>
+<a href="#"> mot de passe oublié</a> <span> | </span><a href="#"> Suggestion</a>
     </form>
-       
+     <div class="col-lg-6"><img src="images/logo_daf.png" alt="..." class="img-thumbnail" width="200"></div>  
       </div>
      </div>
+     </div>
+     <!-- Fin col-lg-8 -->
+     <div class="col-lg-4">
      
+    
+     </div>
+     
+     </div>
+     <!-- Fin row -->
   </div>
+  <!-- Fin container -->
  
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="module/jquery/jquery.min.js" ></script>
