@@ -145,7 +145,10 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
      <p></p>
 <a href="#"> mot de passe oublié</a> <span> | </span><a href="#"> Suggestion</a>
     </form>
+
      <div class="col-lg-6"><img src="images/logo_daf.png" alt="..." class="img-thumbnail" width="200"></div>  
+
+ 
       </div>
      </div>
      </div>
