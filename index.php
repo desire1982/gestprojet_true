@@ -218,7 +218,7 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
       
       <button type="submit" name="login_btn" class="btn btn-primary" style="width:100px">Login</button><br>
      <p></p>
-<a href="#"> mot de passe oublié</a> <span> | </span><a href="#"> Suggestion</a>
+<a href="#"> mot de passe oublié</a> <span> | </span><a href="suggestion.php"> Suggestion</a>
     </form>
 
      <div class="col-lg-6"><img src="images/logo_daf.png" alt="..." class="img-thumbnail" width="200"></div>  
