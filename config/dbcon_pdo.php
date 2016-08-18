@@ -5,7 +5,7 @@
 define('HOST', 'localhost'); // Database host name ex. localhost
 define('USER', 'root'); // Database user. ex. root ( if your on local server)
 define('PASSWORD', ''); // Database user password  (if password is not set for user then keep it empty )
-define('DATABASE', 'gestprojet'); // Database name
+define('DATABASE', 'gestprojet_true'); // Database name
 define('CHARSET', 'utf8');
 
 //$DB_host = "localhost";
