@@ -21,23 +21,28 @@ include('header_sug.php');
    
     
 	<label for="full_name" class="h4" >Nom</label>
-		<input type="text" class="form-control" name="full_name" id="full_name" placeholder="Entrer votre nom . . . ." autofocus required/>
+		<input type="text" title="" data-toggle="popover" data-trigger="hover" data-content="Veuillez saisir le nom d'utilisateur" data-placement="top"  class="form-control" name="full_name" id="full_name" placeholder="Entrer votre nom . . . ." autofocus required/>
 		
 	</div>
     
     <div class="form-group col-sm-3">	
 	
 	<label for="email" class="h4" >E-mail</label>
-		<input type="email" class="form-control" name="email" id="email" placeholder="Entrer votre Email . . . ." required/>
+		<input type="email" title="" data-toggle="popover" data-trigger="hover" data-content="Veuillez saisir votre email pour recevoir un retour" data-placement="top" class="form-control" name="email" id="email" placeholder="Entrer votre Email . . . ." required/>
 		
     </div>	
 	
 	<div class="form-group col-sm-9">
 	<label for="message"  class="h4">Message</label>
-		<textarea name="message" class="form-control" rows="5" placeholder="Entrer votre message . . . ." required></textarea>
+		<textarea title="" data-toggle="popover" data-trigger="hover" data-content="Veuillez saisir le message de suggestion" data-placement="top" name="message" class="form-control" rows="5" placeholder="Entrer votre message . . . ." required></textarea>
 		
 	
 	</div>
+    
+    <div class="form-group col-sm-5" >
+		<input id="code" title="" data-toggle="popover" data-trigger="hover" data-content="Veuillez entrer le code en face" data-placement="top" class="form-control" name="code_confirmation" type="text" placeholder="Entrez le code en face . . . ." required></td>
+</div>
+<br>
 <div class="form-group col-sm-5">
 
 	
@@ -56,10 +61,7 @@ include('header_sug.php');
 <br />
 <br />
  
-<div class="form-group col-sm-5" >
-		<input id="code" class="form-control" name="code_confirmation" type="text" placeholder="Entrez le code ci-dessus . . . ." required></td>
-</div>
-<br>
+
 <div class="form-group col-sm-5" style="margin-left:180px;">
 	
 		<button type="submit" name="send_message" class="btn btn-success"><i class="icon-ok icon-large"></i> Envoyer</button> &nbsp; <button type="text" name="retour" class="btn btn-success"><i class="icon-ok icon-large"></i> Retour</button>
@@ -76,5 +78,12 @@ include('header_sug.php');
  </div>
 
  <!-- Fin de container -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
 </body>
 </html>
