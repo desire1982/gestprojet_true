@@ -238,7 +238,7 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
      </div>
      
      </div>
-     <!-- Fin row -->
+     <!-- Fin de row -->
   </div>
   <!-- Fin container -->
  
