@@ -15,7 +15,15 @@ body {
 	
 }
 
-h2 {
+.h4{
+	font-size:18px; 
+	font-family:georgia;
+	 margin-top:10px;
+	 font-weight:bold;
+	
+	}
+
+/*h2 {
 	margin-bottom: 20px;
 	color: black;
 }
@@ -64,7 +72,7 @@ input:focus, textarea:focus {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border: 1px solid blue
-}
+}*/
 	   </style>
        
        
