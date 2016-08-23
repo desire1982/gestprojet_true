@@ -8,8 +8,8 @@
 
 // Désactiver l'affichage des erreurs sur une page
 //ini_set("display_errors",0);error_reporting(0);
-$query = mysql_connect("localhost","daf_mie","123456789");
-mysql_select_db("gestprojet_true",$query);
+$con = mysql_connect("localhost","daf_mie","123456789");
+mysql_select_db("gestprojet_true",$con);
 //error_reporting(E_ALL ^ E_DEPRECATED);
 
 ?>
