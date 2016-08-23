@@ -1,3 +1,41 @@
+<?php 
+include('config/connectmysql.php');
+ //--------requete des dotations de 2016
+$reqdotation="SELECT 
+  `tbl_dotation_projet`.`date_dotation` AS annee,
+  SUM(`tbl_dotation_projet`.`montant_dotation`) AS `montant_globaux`
+FROM
+  `tbl_dotation_projet`
+WHERE
+  `tbl_dotation_projet`.`date_dotation` = 2016
+GROUP BY
+  `tbl_dotation_projet`.`date_dotation`";
+  
+//  var_dump($requete1);
+$resdotation=mysql_query($reqdotation);
+//var_dump($resultat1);
+$Totaldotation= mysql_fetch_array($resdotation);
+$TotauxDotations= $Totaldotation['montant_globaux'];
+$TotauxAnnee = $Totaldotation['annee'];
+
+// requete des modifications de 2016
+$reqmodification ="SELECT 
+  YEAR(`date_sign_mb`) AS `annee_mod`,
+  SUM(`tbl_modif_budget`.`montant_mb`) AS `montant_modif`
+FROM
+  `tbl_modif_budget`
+WHERE
+  YEAR(`date_sign_mb`) = 2016
+GROUP BY
+  YEAR(`date_sign_mb`) ";
+$resmodification=mysql_query($reqmodification);
+//var_dump($resultat1);
+$Totalmodification= mysql_fetch_array($resmodification);
+$TotauxModifications= $Totalmodification['montant_modif'];
+$TotauxAnnee_modif = $Totalmodification['annee_mod'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +68,66 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ 
+ <script type="text/javascript">
+		$(document).ready(function() {
+			var options = {
+	            chart: {
+	                renderTo: 'container',
+	                type: 'column',
+	                marginRight: 130,
+	                marginBottom: 25
+	            },
+	            title: {
+	                text: 'DOTATION',
+	                x: -20 //center
+	            },
+	            subtitle: {
+	                text: '',
+	                x: -20
+	            },
+	            xAxis: {
+	                categories: []
+	            },
+	            yAxis: {
+	                title: {
+	                    text: 'MONTANT'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                        return '<b>'+ this.series.name +'</b><br/>'+
+	                        this.x +': '+ this.y;
+	                }
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'top',
+	                x: -10,
+	                y: 100,
+	                borderWidth: 0
+	            },
+	            series: []
+	        }
+	        
+	        $.getJSON("data_dotation_source_finance.php", function(json) {
+				options.xAxis.categories = json[0]['data'];
+	        	options.series[0] = json[1];
+	        	options.series[1] = json[2];
+	        	options.series[2] = json[3];
+		        chart = new Highcharts.Chart(options);
+	        });
+	    });
+		</script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 </head>
 
 <body>
@@ -59,12 +156,12 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                <div class="col-xs-2">
+                                    <i class="fa fa-comments fa-1x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>DOTATION</div>
+                                    <div class="huge" style="font-size:16px; font-weight:bold; color:#000"><?php echo number_format($TotauxDotations, 0, ',', ' '); ?></div>
+                                    <div style="font-weight:bold">DOTATION <?php echo $TotauxAnnee; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -84,11 +181,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-tasks fa-1x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>MODIFICATION</div>
+                                    <div class="huge" style="font-size:16px; font-weight:bold; color:#000"><?php echo number_format($TotauxModifications, 0, ',', ' '); ?> </div>
+                                    <div style="font-weight:bold">MODIFICATION <?php echo $TotauxAnnee_modif; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -106,10 +203,10 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-shopping-cart fa-1x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
+                                    <div class="huge" style="font-size:16px; font-weight:bold; color:#000">124</div>
                                     <div>Dossiers traités</div>
                                 </div>
                             </div>
@@ -128,10 +225,10 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-support fa-1x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge" style="font-size:16px; font-weight:bold; color:#000">13</div>
                                     <div>Support Tickets!</div>
                                 </div>
                             </div>
@@ -174,11 +271,48 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="morris-area-chart"></div>
+                            <div id="container"> </div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
+                   
+                   
+              <!-- Deuxième panel -->      
+                    <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Graphique Camember
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="container1"> </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    
+                    
                     
             
         </div>
