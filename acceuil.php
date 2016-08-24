@@ -102,8 +102,9 @@ $TotauxAnnee_modif = $Totalmodification['annee_mod'];
 	            },
 	            tooltip: {
 	                formatter: function() {
+						// Mise en place du format du graphique
 	                        return '<b>'+ this.series.name +'</b><br/>'+
-	                        this.x +': '+ this.y;
+	                        this.x +': '+ Highcharts.numberFormat(this.y, 0);
 	                }
 	            },
 	            legend: {
@@ -126,6 +127,66 @@ $TotauxAnnee_modif = $Totalmodification['annee_mod'];
 	        });
 	    });
 		</script>
+        
+        
+  <!--Camembers -->      
+        <script type="text/javascript">
+$(document).ready(function() {
+	
+//Reglage des options du graphique
+var options = {
+    chart: {
+        renderTo: 'containerCamember',
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+    },
+    title: {
+        text: 'SOURCE DE FINANCEMENT'
+    },
+    tooltip: {
+        formatter: function() {
+			// le chiffre sur les infobulles est en pourcentage
+            return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %';
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+			 //borderColor: '#000000',
+			// borderWidth: 3,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+					// Formatter le nombre en separateur de millier
+                    return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.y, 0) +' F CFA';
+                }
+            }
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Browser share',
+        data: []
+    }]
+}
+
+
+// Remplissage du graphique avec les données JSON
+
+
+$.getJSON("data_dotation_source_finance_camember.php", function(json) {
+                options.series[0].data = json;
+                
+				
+				chart = new Highcharts.Chart(options);
+            });
+	
+});
+</script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 </head>
@@ -245,7 +306,7 @@ $TotauxAnnee_modif = $Totalmodification['annee_mod'];
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Graphique camember
@@ -276,11 +337,13 @@ $TotauxAnnee_modif = $Totalmodification['annee_mod'];
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
+                   </div>
+                   <!-- /.col-lg-8 -->
                    
                    
               <!-- Deuxième panel -->      
-                    <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                    
+                <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Graphique Camember
@@ -306,14 +369,20 @@ $TotauxAnnee_modif = $Totalmodification['annee_mod'];
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="container1"> </div>
+                            <div id="containerCamember"> </div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                     
-                    
-                    
+                   </div> 
+                   <!-- /.col-lg-8 --> 
+                   
+                   </div>
+                   <!-- /.row --> 
+                   
+                   </div>
+                   <!-- /.row --> 
             
         </div>
         <!-- /#page-wrapper -->
