@@ -128,8 +128,12 @@ else{
     <title>Gestion Projet</title>
  
     <!-- Bootstrap -->
-    <link href="module/bootstrap/css/bootstrap.min.css" rel="stylesheet">
- 
+   <!-- <link href="module/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
    
     
     
@@ -234,13 +238,15 @@ while ($row_menu = $res_menu->fetch_assoc()){ ?>
      </div>
      
      </div>
-     <!-- Fin row -->
+     <!-- Fin de row -->
   </div>
   <!-- Fin container -->
  
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="module/jquery/jquery.min.js" ></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="module/bootstrap/js/bootstrap.min.js"></script>
+ <!--   <script src="module/bootstrap/js/bootstrap.min.js"></script>-->
+ <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html> 
