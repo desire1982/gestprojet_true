@@ -11,3 +11,6 @@ V1.0 mis en ligne le 10/08/2016
 # V1.0.3 le 18/08/2016
 -Ajout du lien suggestion vers le formulaire des suggestion
 -Ajout de la table tbl_contact
+#25/08/2016
+- Ajout des graphiques Camembers et barre
+
