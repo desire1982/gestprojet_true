@@ -71,61 +71,63 @@ $TotauxAnnee_modif = $Totalmodification['annee_mod'];
  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
  
  <script type="text/javascript">
-		$(document).ready(function() {
-			var options = {
-	            chart: {
-	                renderTo: 'container',
-	                type: 'column',
-	                marginRight: 130,
-	                marginBottom: 25
-	            },
-	            title: {
-	                text: 'DOTATION',
-	                x: -20 //center
-	            },
-	            subtitle: {
-	                text: '',
-	                x: -20
-	            },
-	            xAxis: {
-	                categories: []
-	            },
-	            yAxis: {
-	                title: {
-	                    text: 'MONTANT'
-	                },
-	                plotLines: [{
-	                    value: 0,
-	                    width: 1,
-	                    color: '#808080'
-	                }]
-	            },
-	            tooltip: {
-	                formatter: function() {
-						// Mise en place du format du graphique
-	                        return '<b>'+ this.series.name +'</b><br/>'+
-	                        this.x +': '+ Highcharts.numberFormat(this.y, 0);
-	                }
-	            },
-	            legend: {
-	                layout: 'vertical',
-	                align: 'right',
-	                verticalAlign: 'top',
-	                x: -10,
-	                y: 100,
-	                borderWidth: 0
-	            },
-	            series: []
-	        }
-	        
-	        $.getJSON("data_dotation_source_finance.php", function(json) {
-				options.xAxis.categories = json[0]['data'];
-	        	options.series[0] = json[1];
-	        	options.series[1] = json[2];
-	        	options.series[2] = json[3];
-		        chart = new Highcharts.Chart(options);
-	        });
-	    });
+			var chart1; // globally available
+$(document).ready(function() {
+      chart1 = new Highcharts.Chart({
+         chart: {
+            renderTo: 'container',
+            type: 'column'
+         },   
+         title: {
+            text: 'GRAPHIQUE DES DOTATIONS'
+         },
+         xAxis: {
+            categories: ['Source de financement']
+         },
+         yAxis: {
+            title: {
+               text: 'Montant'
+            }
+         },
+              series:             
+            [
+            <?php 
+        	//include('config.php');
+			//include('config/connectmysql.php');
+			
+			// REQUETE POUR RECUPERER LE CODE DOTATION
+           $sql   = "SELECT `code_source_dotation` FROM `tbl_source_finance_dotation`";
+            $query = mysql_query( $sql )  or die(mysql_error());
+            while( $ret = mysql_fetch_array($query)){
+            	$source_finance=$ret['code_source_dotation'];                     
+                 $sql_jumlah   = "SELECT `tbl_dotation_projet`.`date_dotation` AS annee, 
+  `tbl_dotation_projet`.`code_source_fk` AS source_fin,
+  SUM(`tbl_dotation_projet`.`montant_dotation`) AS `montant_dotation`
+FROM
+  `tbl_dotation_projet`
+WHERE
+  `tbl_dotation_projet`.`date_dotation` = 2015 AND `tbl_dotation_projet`.`code_source_fk` ='$source_finance'
+GROUP BY
+  `tbl_dotation_projet`.`date_dotation`,
+  `tbl_dotation_projet`.`code_source_fk`
+ORDER BY
+  `tbl_dotation_projet`.`date_dotation`,
+  `tbl_dotation_projet`.`code_source_fk`";  
+       
+                 $query_jumlah = mysql_query($sql_jumlah) or die(mysql_error());
+                 while($data = mysql_fetch_array($query_jumlah)){
+                    $montant = $data['montant_dotation']; 
+					$annee = $data['annee'];                
+                  }             
+                  ?>
+                  {
+                      name: '<?php echo $source_finance. ' '.$annee; ?>',
+                      data: [<?php echo $montant; ?>]
+                  },
+                  <?php } ?>
+            ]
+      });
+   });	
 		</script>
         
         
@@ -304,9 +306,11 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
+            
+            
             <div class="row">
                 <div class="col-lg-6">
+                 <!-- Premier panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Graphique camember
@@ -336,14 +340,15 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
+                    <!-- /.Premier panel -->
                    </div>
-                   <!-- /.col-lg-8 -->
+                   <!-- /.col-lg-6 -->
                    
                    
-              <!-- Deuxième panel -->      
+                   
                     
                 <div class="col-lg-6">
+                 <!-- Deuxième panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Graphique Camember
@@ -374,15 +379,89 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    
+                     <!-- /. Deuxième panel -->
                    </div> 
-                   <!-- /.col-lg-8 --> 
+                   <!-- /.col-lg-6 --> 
+                   
+                   
+                   <div class="col-lg-6" >
+                   <!--  Troisième panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Graphique camember
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="container"> </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /. Troisième panel -->
+                   </div>
+                   <!-- /.col-lg-6 -->
+                   
+                          
+                   <div class="col-lg-6" >
+                   <!--  Quatrième panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Graphique camember
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="container"> </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /. Quatrième panel -->
+                   </div>
+                   <!-- /.col-lg-6 -->
                    
                    </div>
                    <!-- /.row --> 
                    
                    </div>
                    <!-- /.row --> 
+            
+         
             
         </div>
         <!-- /#page-wrapper -->
