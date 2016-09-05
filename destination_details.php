@@ -1,22 +1,5 @@
 <?php
-
-if(session_id() == ""){
-  session_start();
-	 }
-	 
-if(isset($_SESSION['login_time'])){
-				   
-	if((time() - $_SESSION['login_time']) > 200){
-session_unset();     // unset $_SESSION variable for the run-time 
-session_destroy();
-session_start();
-//echo 'vous etes deconnecter';
-header("Location: index.php");
-}
-
-				   }
-$_SESSION['login_time']=time();
-
+include('deconnect_auto.php');
 ?>
 
 <!DOCTYPE html>
@@ -38,13 +21,7 @@ $_SESSION['login_time']=time();
     <!-- MetisMenu CSS -->
     <link href="menu/css/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+      <!-- Custom CSS -->
     <link href="menu/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -188,12 +165,11 @@ $_SESSION['login_time']=time();
             </div>        
             <div class="form-group">
               <label for="date_destination"><span class="glyphicon glyphicon-eye-open"></span> Date de demarrage</label>
-              <div class="input-group">
-              <div class="input-group-addon">Date:</div>
-              <input type="text" class="form-control" id="date_destination" name="date_destination" placeholder="entrer la date">
-              <div class="input-group-addon">ex : 2016-12-30 (AAAA-MM-JJ)</div>
-            
-            </div>
+              <div class="input-group date" data-provide="datepicker">
+<span id="basic-addon1" class="input-group-addon">Date:</span>
+<input type="text" class="form-control" id="date_destination"><div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
             </div>
            <div class="form-group">
               <label for="dure_projet"><span class="glyphicon glyphicon-eye-open"></span> Durée du projet</label>
@@ -206,6 +182,14 @@ $_SESSION['login_time']=time();
              <option value="6">6</option>
           </select>
             </div>
+            
+            
+             <div class="form-group">
+              
+<input type="hidden" class="form-control" id="date_dest" value="<?php echo date('Y-m-d H:i:s'); ?>">
+<input type="hidden" class="form-control" id="utilisateur_connecte" value="<?php echo $role; ?>">
+       
+    </div>
            <input type="submit" value="enregistrer" class="btn btn-warning" id="enr"/>
 <input type="submit" value="editer" class="btn btn-warning" id="edi"/> <input type="reset"
 
@@ -232,18 +216,25 @@ $_SESSION['login_time']=time();
     <!-- Metis Menu Plugin JavaScript -->
     <script src="menu/js/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src="../bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
-    
+  
     <!-- Custom Theme JavaScript -->
     <script src="menu/js/sb-admin-2.js"></script>
     <script  type="text/javascript" src="js/myscript.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
-
+ <!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$('.date').datepicker({
+            format: 'dd-mm-yyyy',
+            startDate: '01/01/2010',
+            endDate: '12/30/2020',
+        })
+})
+</script>
 
 
 </body>
