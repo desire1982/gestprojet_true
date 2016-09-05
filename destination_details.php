@@ -1,22 +1,5 @@
 <?php
-
-if(session_id() == ""){
-  session_start();
-	 }
-	 
-if(isset($_SESSION['login_time'])){
-				   
-	if((time() - $_SESSION['login_time']) > 200){
-session_unset();     // unset $_SESSION variable for the run-time 
-session_destroy();
-session_start();
-//echo 'vous etes deconnecter';
-header("Location: index.php");
-}
-
-				   }
-$_SESSION['login_time']=time();
-
+include('deconnect_auto.php');
 ?>
 
 <!DOCTYPE html>
@@ -38,13 +21,7 @@ $_SESSION['login_time']=time();
     <!-- MetisMenu CSS -->
     <link href="menu/css/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+      <!-- Custom CSS -->
     <link href="menu/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -232,11 +209,7 @@ $_SESSION['login_time']=time();
     <!-- Metis Menu Plugin JavaScript -->
     <script src="menu/js/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src="../bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
-    
+  
     <!-- Custom Theme JavaScript -->
     <script src="menu/js/sb-admin-2.js"></script>
     <script  type="text/javascript" src="js/myscript.js"></script>

@@ -17,14 +17,9 @@ switch($pro){
 
 case 'enregistrer':
  $sql_affiche="INSERT INTO tbl_destination(destination,lib_destination, nature_projet, responsable_prjt, date_demarrage_prjt, duree_prjt) VALUES('$id_destination','$lib_destination','$nature_projet','$resp_projet','$date_destination','$dure_projet')";
-// var_dump($sql_affiche);
+
 $res_affiche=$mysqli->query("$sql_affiche");
-//var_dump($res_affiche);
-// if($res_affiche){
-//    echo "Success";
- // } else{
- //   echo "Fail";
-//  }
+
 break;
 
 case 'editer':

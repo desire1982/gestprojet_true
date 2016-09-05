@@ -10,7 +10,7 @@ if(isset($_SESSION['login_time'])){
 	include('config/connect.php');
 	
 				   
-	if((time() - $_SESSION['login_time']) > 200){
+	if((time() - $_SESSION['login_time']) > 500){
 		
 		// On met à (0) zero etat connecté
  $stmt = $mysqli->prepare("UPDATE tbl_user SET connecte = ? WHERE id_user = ?");
