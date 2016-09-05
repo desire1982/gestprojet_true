@@ -2,7 +2,7 @@
  <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
            <?php 
-		   session_start();
+		  // session_start();
 		   include('menu/menu_horizontal.php');
 		  // echo $_SESSION['role'].'desire';
 		   if(empty($_SESSION))
@@ -43,7 +43,7 @@
                         
                         <?php if($role == 'admin' || $role == 'visiteur' ) { ?>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> PROJET</a>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> PROJET <?php echo $_SESSION['login_time']; ?></a>
                              <ul class="nav nav-second-level">
                                 <li>
                                     <a href="destination_details.php">                      

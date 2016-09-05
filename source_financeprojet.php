@@ -1,4 +1,6 @@
-
+<?php 
+include('deconnect_auto.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,5 +1,7 @@
+
 <?php 
 include('config/connectmysql.php');
+include('deconnect_auto.php');
  //--------requete des dotations de 2016
 $reqdotation="SELECT 
   `tbl_dotation_projet`.`date_dotation` AS annee,
@@ -33,6 +35,9 @@ $resmodification=mysql_query($reqmodification);
 $Totalmodification= mysql_fetch_array($resmodification);
 $TotauxModifications= $Totalmodification['montant_modif'];
 $TotauxAnnee_modif = $Totalmodification['annee_mod'];
+
+
+
 
 ?>
 
@@ -203,7 +208,7 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">TABLEAU DE BORD - BUDGET</h1>
+                    <h1 class="page-header">TABLEAU DE BORD - BUDGET <?php  echo time(); ?> </h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -304,6 +309,8 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
                     </div>
                 </div>
             </div>
+
+
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-6">
@@ -332,6 +339,7 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+
                             <div id="container"> </div>
                         </div>
                         <!-- /.panel-body -->
@@ -384,10 +392,22 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
                    </div>
                    <!-- /.row --> 
             
+
+                        
+                        <!-- DEBUT DE GRAPHIQUE -->
+                            <div id="container" style="width:100%; height:300px"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+                </div>
+            </div>
+
         </div>
         <!-- /#page-wrapper -->
 
     </div>
+
     <!-- /#wrapper -->
 
     <!-- jQuery -->
@@ -399,13 +419,42 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
     <!-- Metis Menu Plugin JavaScript -->
     <script src="menu/js/metisMenu.min.js"></script>
 
-   
+
     
     <!-- Custom Theme JavaScript -->
     <script src="menu/js/sb-admin-2.js"></script>
-
+  
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-   
+
+    <script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
+    </script>
 
 </body>
 

@@ -1,4 +1,6 @@
-
+<?php
+include('deconnect_auto.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,13 +21,7 @@
     <!-- MetisMenu CSS -->
     <link href="menu/css/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+      <!-- Custom CSS -->
     <link href="menu/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -93,19 +89,19 @@
 <td>
  <!--Si l'Utilisateur est un administrateur on affiche le bouton Editer-->
 <?php if($role == 'admin') { ?>
-<button class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<button class="btn btn-primary" onClick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
 <?php } ?> 
  <!--Si l'Utilisateur est un visiteur on grise le bouton Editer-->
 <?php if($role == 'visiteur') { ?>
-<button disabled class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<button disabled class="btn btn-primary" onClick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
 <?php } ?> 
  <!--Si l'Utilisateur est un visiteur on grise le bouton Supprimer-->
 <?php if($role == 'visiteur') { ?>
-<button disabled class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<button disabled class="btn btn-primary" onClick="eliminerDestination('.$row['destination'].')">Supprimer</button>
 <?php } ?>
  <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Suprimer-->
 <?php if($role == 'admin' ||$role == 'projet' ) { ?>
-<button class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<button class="btn btn-primary" onClick="eliminerDestination('.$row['destination'].')">Supprimer</button>
 <?php } ?>
 
 
@@ -213,11 +209,7 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="menu/js/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src="../bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
-    
+  
     <!-- Custom Theme JavaScript -->
     <script src="menu/js/sb-admin-2.js"></script>
     <script  type="text/javascript" src="js/myscript.js"></script>
