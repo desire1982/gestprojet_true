@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 if(isset($_GET['deconnecter']))
 {
 	// On insère la date de la connextion et l'adresse ip du poste connecter

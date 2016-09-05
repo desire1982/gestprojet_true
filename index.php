@@ -71,6 +71,7 @@ if(isset($_POST['login_btn'])){
       $_SESSION['role']=$type;
 	  //On recupère l'id de l'utilisateur pour mettre à 0 le champ connecté en cas de deconnection
 	  $_SESSION['id_user_ss']=$id_utilisateur;
+    $_SESSION['login_time'] = time();
 	 
       echo "<script>window.location.assign('acceuil.php')</script>";
     } else if($type=="projet"){
@@ -78,6 +79,7 @@ if(isset($_POST['login_btn'])){
       $_SESSION['role']=$type;
 	  //On recupère l'id de l'utilisateur pour mettre à 0 le champ connecté en cas de deconnection
 	  $_SESSION['id_user_ss']=$id_utilisateur;
+    $_SESSION['login_time'] = time();
       echo "<script>window.location.assign('acceuil.php')</script>";
     } else{
 ?>

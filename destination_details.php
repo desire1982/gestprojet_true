@@ -1,4 +1,23 @@
+<?php
 
+if(session_id() == ""){
+  session_start();
+	 }
+	 
+if(isset($_SESSION['login_time'])){
+				   
+	if((time() - $_SESSION['login_time']) > 200){
+session_unset();     // unset $_SESSION variable for the run-time 
+session_destroy();
+session_start();
+//echo 'vous etes deconnecter';
+header("Location: index.php");
+}
+
+				   }
+$_SESSION['login_time']=time();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,19 +112,19 @@
 <td>
  <!--Si l'Utilisateur est un administrateur on affiche le bouton Editer-->
 <?php if($role == 'admin') { ?>
-<button class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<button class="btn btn-primary" onClick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
 <?php } ?> 
  <!--Si l'Utilisateur est un visiteur on grise le bouton Editer-->
 <?php if($role == 'visiteur') { ?>
-<button disabled class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<button disabled class="btn btn-primary" onClick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
 <?php } ?> 
  <!--Si l'Utilisateur est un visiteur on grise le bouton Supprimer-->
 <?php if($role == 'visiteur') { ?>
-<button disabled class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<button disabled class="btn btn-primary" onClick="eliminerDestination('.$row['destination'].')">Supprimer</button>
 <?php } ?>
  <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Suprimer-->
 <?php if($role == 'admin' ||$role == 'projet' ) { ?>
-<button class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<button class="btn btn-primary" onClick="eliminerDestination('.$row['destination'].')">Supprimer</button>
 <?php } ?>
 
 
