@@ -60,14 +60,17 @@ function modifierDestination(){
         var lib_destination = $('#lib_destination').val();
 		 var nature_projet = $('#nature_projet').val();
 		 var resp_projet = $('#resp_projet').val();
-		 var date_dem_projet = $('#date_dem_projet').val();
+		 var date_destination = $('#date_destination').val();
 		 var dure_projet = $('#dure_projet').val();
-		
-		console.log(lib_destination+1);
+		 //Pour connaitre la date à laquelle un utilisateur a enregistré le formulaire de destination
+		 var date_creation_dest = $('#date_dest').val();
+		  //Pour connaitre l'utilisateur qui s'est connecté au site
+		 var utilisateur_connecte = $('#utilisateur_connecte').val();
+		console.log(lib_destination+1+date_creation_dest+utilisateur_connecte+date_destination);
  
         // Je vérifie une première fois pour ne pas lancer la requête HTTP
         // si je sais que mon PHP renverra une erreur
-        if(id_destination === '' || lib_destination === '' || nature_projet === ''|| resp_projet === ''|| date_dem_projet === ''|| dure_projet === '') {
+        if(id_destination === '' || lib_destination === '') {
             alert('Les champs doivent êtres remplis');
 			return false;
         } else {
@@ -76,7 +79,7 @@ var url='php/modifier_destination.php';
 $.ajax({
 type:'POST',
 url:url,
-data:$('#form_destination').serialize(),
+data:$('#form_destination').serialize()+'&date_destination='+date_destination+'&date_creation_dest='+date_creation_dest+'&utilisateur_connecte='+utilisateur_connecte,
 success: function(data){
 if($('#pro').val()=='enregistrer'){
 $('#form_destination')[0].reset();

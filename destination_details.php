@@ -1,7 +1,6 @@
-<?php
+<?php 
 include('deconnect_auto.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +20,7 @@ include('deconnect_auto.php');
     <!-- MetisMenu CSS -->
     <link href="menu/css/metisMenu.min.css" rel="stylesheet">
 
-      <!-- Custom CSS -->
+       <!-- Custom CSS -->
     <link href="menu/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -89,19 +88,19 @@ include('deconnect_auto.php');
 <td>
  <!--Si l'Utilisateur est un administrateur on affiche le bouton Editer-->
 <?php if($role == 'admin') { ?>
-<button class="btn btn-primary" onClick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<button class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
 <?php } ?> 
  <!--Si l'Utilisateur est un visiteur on grise le bouton Editer-->
 <?php if($role == 'visiteur') { ?>
-<button disabled class="btn btn-primary" onClick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
+<button disabled class="btn btn-primary" onclick="editerDestination('<?php echo $row['destination']; ?>')">Editer</button>
 <?php } ?> 
  <!--Si l'Utilisateur est un visiteur on grise le bouton Supprimer-->
 <?php if($role == 'visiteur') { ?>
-<button disabled class="btn btn-primary" onClick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<button disabled class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
 <?php } ?>
  <!--Si l'Utilisateur est un admin ou projet on affiche le bouton Suprimer-->
 <?php if($role == 'admin' ||$role == 'projet' ) { ?>
-<button class="btn btn-primary" onClick="eliminerDestination('.$row['destination'].')">Supprimer</button>
+<button class="btn btn-primary" onclick="eliminerDestination('.$row['destination'].')">Supprimer</button>
 <?php } ?>
 
 
@@ -160,17 +159,16 @@ include('deconnect_auto.php');
           </select>
             </div>
             <div class="form-group">
-              <label for="resp_projet"><span class="glyphicon glyphicon-eye-open"></span> Responsable du projet</label>
+              <label for="resp_projet"><span class="glyphicon glyphicon-user"></span> Responsable du projet</label>
               <input type="text" class="form-control" id="resp_projet" name="resp_projet" placeholder="entrer le responsable du projet">
             </div>        
             <div class="form-group">
               <label for="date_destination"><span class="glyphicon glyphicon-eye-open"></span> Date de demarrage</label>
-              <div class="input-group">
-              <div class="input-group-addon">Date:</div>
-              <input type="text" class="form-control" id="date_destination" name="date_destination" placeholder="entrer la date">
-              <div class="input-group-addon">ex : 2016-12-30 (AAAA-MM-JJ)</div>
-            
-            </div>
+              <div class="input-group date" data-provide="datepicker">
+<span id="basic-addon1" class="input-group-addon">Date:</span>
+<input type="text" class="form-control" id="date_destination"><div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
             </div>
            <div class="form-group">
               <label for="dure_projet"><span class="glyphicon glyphicon-eye-open"></span> Durée du projet</label>
@@ -183,10 +181,15 @@ include('deconnect_auto.php');
              <option value="6">6</option>
           </select>
             </div>
+            
+             <div class="form-group">
+              
+<input type="hidden" class="form-control" id="date_dest" value="<?php echo date('Y-m-d H:i:s'); ?>">
+<input type="hidden" class="form-control" id="utilisateur_connecte" value="<?php echo $role; ?>">
+       
+    </div>
            <input type="submit" value="enregistrer" class="btn btn-warning" id="enr"/>
-<input type="submit" value="editer" class="btn btn-warning" id="edi"/> <input type="reset"
-
- value="Annuler"> <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button> 
+<input type="submit" value="editer" class="btn btn-warning" id="edi"/>  <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal">  <span class="glyphicon glyphicon-remove"></span> Cancel</button> 
           </form>
         </div>
          <div id="formulaireresultat">
@@ -208,14 +211,25 @@ include('deconnect_auto.php');
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="menu/js/metisMenu.min.js"></script>
-
-  
+    
     <!-- Custom Theme JavaScript -->
     <script src="menu/js/sb-admin-2.js"></script>
     <script  type="text/javascript" src="js/myscript.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
+ <!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$('.date').datepicker({
+            format: 'dd-mm-yyyy',
+            startDate: '01/01/2010',
+            endDate: '12/30/2020',
+        })
+})
+</script>
 
 
 

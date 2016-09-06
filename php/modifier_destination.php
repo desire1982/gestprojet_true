@@ -8,15 +8,17 @@ $nature_projet=$_POST['nature_projet'];
 $resp_projet=$_POST['resp_projet'];
 $date_destination=$_POST['date_destination'];
 $dure_projet=$_POST['dure_projet'];
-//$date_destination1=str_to_date($date_destination,'%d %m %Y');
-//$date_destination2 = DATE_FORMAT($date_destination,'%d/%m/%Y');
-//echo $date_destination2;
-//echo $date_destination1;
+$date_creation_dest=$_POST['date_creation_dest'];
+$utilisateur_connecte=$_POST['utilisateur_connecte'];
+$ndate_destination=date('Y-m-d', strtotime($date_destination));
+//var_dump($_POST);
 
 switch($pro){ 
 
 case 'enregistrer':
- $sql_affiche="INSERT INTO tbl_destination(destination,lib_destination, nature_projet, responsable_prjt, date_demarrage_prjt, duree_prjt) VALUES('$id_destination','$lib_destination','$nature_projet','$resp_projet','$date_destination','$dure_projet')";
+
+ $sql_affiche="INSERT INTO tbl_destination(destination,lib_destination, nature_projet, responsable_prjt, date_demarrage_prjt, duree_prjt,dest_enregistre_le,dest_enregistre_par) VALUES('$id_destination','$lib_destination','$nature_projet','$resp_projet','$ndate_destination','$dure_projet','$date_creation_dest','$utilisateur_connecte')";
+// var_dump($sql_affiche);
 
 $res_affiche=$mysqli->query("$sql_affiche");
 
