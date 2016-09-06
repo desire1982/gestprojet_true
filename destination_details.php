@@ -51,7 +51,7 @@ include('deconnect_auto.php');
             <div class="row">
               
             <div class="row">
-                <div class="col-lg-8 col-md-offset-1">
+                <div class="col-lg-8 ">
  
  <table width="200" border="1" style="margin-left:100px; margin-top:15px; margin-bottom:15px">
   <tr>
@@ -73,7 +73,7 @@ include('deconnect_auto.php');
      <tr>
      <?php
 
-    include('config/connect.php'); 
+ //   include('config/connect.php'); 
    $sql_affiche="SELECT * FROM tbl_destination ORDER BY destination ASC";
  
 	 
@@ -118,6 +118,29 @@ include('deconnect_auto.php');
                   
                 <!-- /.col-lg-8 -->
             </div>
+         <!-- aJOUT DU PANNEAU DES STATISTIQUES -->   
+           <div class="col-lg-4">
+           
+           <div class="panel panel-default" style="margin-top:60px">
+           <div class="panel-heading">TABLEAU DE BORD DES DESTINATIONS</div>
+  <div class="panel-body">
+  <?php  
+  // POUR CONNAITRE LE NOMBRE DE DESTINATION DISTINCTE
+  $sql_destination_nombre="SELECT COUNT(DISTINCT `tbl_destination`.`destination`) AS NOMBRE FROM `tbl_destination`";
+  $res_affiche=$mysqli->query("$sql_destination_nombre");  
+  $row = $res_affiche->fetch_assoc();
+  print_r('Vous avez '.$row['NOMBRE'].' enregistrements');
+  
+  
+  
+  ?>
+  
+  </div>
+  <div class="panel-footer"></div>
+</div>
+           
+           </div> 
+            
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
