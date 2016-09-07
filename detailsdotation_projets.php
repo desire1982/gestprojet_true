@@ -82,7 +82,7 @@ include('deconnect_auto.php');
   <div class="input-group"><span class="input-group-addon" id="basic-addon1">Selectionner le projet:</span>
  <?php 
  //--------requete du menu destination
-$requete1="SELECT *  FROM tbl_destination";
+$requete1="SELECT *  FROM tbl_destination ORDER BY lib_destination ASC";
 $resultat1=mysql_query($requete1);
 
  //--------requete du menu destination
@@ -122,7 +122,8 @@ $resultat2=mysql_query($requete2);
 </label>
 </div>
 <P></P>
-<input type="text" class="form-control " name="type_notif" id="type_notif" >
+<!--  Ajout d'un champ caché de type notfication -->
+<input type="hidden" class="form-control " name="type_notif" id="type_notif" disabled >
 
 <!--Si l'Utilisateur est un visiteur on grise le bouton Valider-->
 <?php if($role == 'visiteur') { ?>
@@ -222,8 +223,8 @@ var annee = $('#annee').val();
 var notif_credit = $('input:radio:checked').val();
 
 
-console.log(destination+annee+notif_credit);
-alert(destination+annee+notif_credit);
+//console.log(destination+annee+notif_credit);
+//alert(destination+annee+notif_credit);
 
 if(notif_credit=='notif_credit'){
 
@@ -241,7 +242,7 @@ $.ajax({
 }
 else if(notif_credit=='notif_arete'){
 	
-	alert('notification réussi');
+	//alert('notification réussi');
 	
 	$.ajax({
 	type:'POST',
