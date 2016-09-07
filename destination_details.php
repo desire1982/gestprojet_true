@@ -43,7 +43,7 @@ include('deconnect_auto.php');
 		//session_start();
 	  include('menu/menu.php'); 
 	  $role = $_SESSION['role'];
-	 
+	  $nom_utilisateur = $_SESSION['nom_utilisateur'];
 	   ?>
 
  <div id="page-wrapper">
@@ -208,11 +208,13 @@ include('deconnect_auto.php');
              <div class="form-group">
               
 <input type="hidden" class="form-control" id="date_dest" value="<?php echo date('Y-m-d H:i:s'); ?>">
-<input type="hidden" class="form-control" id="utilisateur_connecte" value="<?php echo $role; ?>">
+<input type="hidden" class="form-control" id="utilisateur_connecte" value="<?php echo $nom_utilisateur; ?>">
        
     </div>
            <input type="submit" value="enregistrer" class="btn btn-warning" id="enr"/>
+
 <input type="submit" value="editer" class="btn btn-warning" id="edi"/>  <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal">  <span class="glyphicon glyphicon-remove"></span> Cancel</button> 
+
           </form>
         </div>
          <div id="formulaireresultat">
