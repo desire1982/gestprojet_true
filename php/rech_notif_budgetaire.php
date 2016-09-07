@@ -2,7 +2,7 @@
 include('../config/connectmysql.php'); 
 $destination=$_POST['destination'];
 $annee=$_POST['annee'];
-var_dump($_POST);
+//var_dump($_POST);
 
 $sql="SELECT 
   `v_dotation_budget_modif`.`destination_fk` AS `DESTINATION`,
