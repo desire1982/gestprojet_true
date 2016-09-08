@@ -94,8 +94,8 @@ $requete2="SELECT *  FROM tbl_nature";
 $resultat2=mysql_query($requete2);
 
  //--------requete du menu source
-//$req_source="SELECT *  FROM tbl_source_finance_dotation";
-//$res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
+$req_source="SELECT *  FROM tbl_source_finance_dotation";
+$res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 
 
  ?>
@@ -114,6 +114,19 @@ $resultat2=mysql_query($requete2);
   </select>
 </div>
 <p></p>
+<div class="input-group source_group"><span class="input-group-addon" id="basic-addon1">Selectionner la source:</span>
+    <span class="input-group-btn" id="basic-addon1"><button  id="AjoutSource"  class="btn btn-primary">+</button></span>
+ <select class="form-control source_finance" id="source_finance" name="source_finance">
+ <!-- Retourne une ligne de résultat MySQL sous la forme d'un tableau associatif-->
+    <?php while($sources= mysql_fetch_array($res_source)){ ?>
+ <option value="<?php echo $sources['code_source_dotation']; ?>">
+ <?php echo $sources['lib_sourceF']; ?> </option>
+ 
+ <?php } ?>
+  </select> 
+  </div>
+  <p></p>
+
 <div class="input-group nature_group"><span class="input-group-addon" id="basic-addon1">Selectionner la nature:</span>
     <span class="input-group-btn" id="basic-addon1"><button  id="AjoutNature"  class="btn btn-primary">+</button></span>
 <select class="form-control nature" id="nature" name="nature_lib">
@@ -384,6 +397,7 @@ var lib_destination = document.getElementById('lib_destination').value;
 
 $('#situation_budget').on('click', function(){
 	var projet = $('#destination').val();
+	var source_finance = $('#source_finance').val();
 	var nature = $('#nature').val(); 
 	var date_edition_das = $('#date_edition_das').val();
 	var date_production_situation = $('#date_production_situation').val(); 
@@ -399,7 +413,7 @@ $('#situation_budget').on('click', function(){
 	$.ajax({
 		
 		type:'POST',
-		data:'projet='+projet+'&nature='+nature+'&date_edition_das='+date_edition_das+'&date_production_situation='+date_production_situation+'&montant_eng_situation='+montant_eng_situation+'&date_enr_eng_situation_budget='+date_enr_eng_situation_budget+'&utilisateur_connecte='+utilisateur_connecte,
+		data:'projet='+projet+'&source_finance='+source_finance+'&nature='+nature+'&date_edition_das='+date_edition_das+'&date_production_situation='+date_production_situation+'&montant_eng_situation='+montant_eng_situation+'&date_enr_eng_situation_budget='+date_enr_eng_situation_budget+'&utilisateur_connecte='+utilisateur_connecte,
 		url:'php/situation_enr_eng.php',
 		success: function(data){
 			if(data == 'existe'){
