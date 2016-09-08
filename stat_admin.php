@@ -23,7 +23,20 @@ FROM `tbl_destination`
   GROUP BY `tbl_destination`.`destination`
   HAVING COUNT(*)>1";
  $res_doublon_dest=mysql_query("$req_doublon_dest"); 
+ 
+ 
+ // Requete des 5 derniers enregistrements des destinationss
+  $req_5_derniers_enr_dest="SELECT 
+  `tbl_destination`.`destination` AS DESTINATION,
+  `tbl_destination`.`lib_destination` AS LIB_DESTINATION,
+  `tbl_destination`.`dest_enregistre_le`
+FROM
+  `tbl_destination`
+ORDER BY
+  `tbl_destination`.`dest_enregistre_le` DESC LIMIT 0,5";
   
+ $res_5_derniers_enr_dest=mysql_query("$req_5_derniers_enr_dest");
+ 
 
  //--------requete des dotations de 2016
 $reqdotation="SELECT 
@@ -58,10 +71,6 @@ $resmodification=mysql_query($reqmodification);
 $Totalmodification= mysql_fetch_array($resmodification);
 $TotauxModifications= $Totalmodification['montant_modif'];
 $TotauxAnnee_modif = $Totalmodification['annee_mod'];
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -406,8 +415,81 @@ $.getJSON("data_dotation_source_finance_camember.php", function(json) {
   </div>
   
   </div>
+  <!--  Recherche des 5 derniers enregistrements  -->
+  <div class="row"> 
+  <div class="col-lg-5">  
+  <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                            <tr>
+                                                    <th colspan="2" align="center" style="text-align:center">Les 5 derniers enregistrements</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th>Destination</th>
+                                                    <th>Libelle destination</th>
+                                                </tr>
+                                            </thead>
+                                            
+               <?php 
+			   while ($donnee = mysql_fetch_array($res_5_derniers_enr_dest)){
+			    
+				?>                             
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php echo $donnee['DESTINATION'];?></td>
+                                                    <td><?php echo $donnee['LIB_DESTINATION'];?></td>
+                                                   
+                                                </tr>                                       
+                                               
+                                            </tbody>
+                                            
+                    <?php   }  ?>
+                                        
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+  
+  </div>
+  <!-- DEUXIEME TABLE POUR LES PERSONNES CONNECTEES -->
+  <div class="col-lg-5">  
+  <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                            <tr>
+                                                    <th colspan="2" align="center" style="text-align:center">LISTE DES PERSONNES CONNECTES</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th>Nom</th>
+                                                    <th>Date et heure de connexion</th>
+                                                </tr>
+                                            </thead>
+                                            
+               <?php 
+			   while ($donnee = mysql_fetch_array($res_liste_pers)){
+			    
+				?>                             
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php echo $donnee['nom_utilisateur'];?></td>
+                                                    <td><?php echo $donnee['connecte_le'];?></td>
+                                                   
+                                                </tr>                                       
+                                               
+                                            </tbody>
+                                            
+                    <?php   }  ?>
+                                        
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+  
+  </div>
+  
+  </div>
 
-            <!-- /.row -->
+            <!-- row -->
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">

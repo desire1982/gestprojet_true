@@ -1,4 +1,5 @@
 <?php
+header("Content-type: text/json");
 include 'config/connectmysql.php';
 // Exécution de la requête
 
