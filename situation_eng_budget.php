@@ -85,28 +85,38 @@ color: #333333;
    
     <div class="input-group"><span class="input-group-addon" id="basic-addon1">Selectionner le projet:</span><span class="input-group-btn" id="basic-addon1"><button  id="AjoutDestination"  class="btn btn-primary">+</button></span>
  <?php 
- //--------requete du menu destination
-$requete1="SELECT *  FROM tbl_destination ORDER BY destination ASC";
+ //--------requete du menu destination pour afficher seulement les destinations qui ont été dotées par ordre croissant
+ 
+$requete1="SELECT 
+  `tbl_dotation_projet`.`destination_fk` AS DESTINATION,
+  `tbl_destination`.`lib_destination` AS LIB_DESTINATION
+FROM
+  `tbl_dotation_projet`
+  LEFT OUTER JOIN `tbl_destination` ON (`tbl_dotation_projet`.`destination_fk` = `tbl_destination`.`destination`)
+GROUP BY
+  tbl_dotation_projet.destination_fk
+ORDER BY
+  `tbl_destination`.`lib_destination` ASC";
 $resultat1=mysql_query($requete1);
 
- //--------requete du menu nature
-$requete2="SELECT *  FROM tbl_nature";
-$resultat2=mysql_query($requete2);
+ //--------requete du menu nature qui ont été dotées
+//$requete2="SELECT *  FROM tbl_nature";
+//$resultat2=mysql_query($requete2);
 
  //--------requete du menu source
-$req_source="SELECT *  FROM tbl_source_finance_dotation";
-$res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
+//$req_source="SELECT *  FROM tbl_source_finance_dotation";
+//$res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 
 
  ?>
 
  
-  <select class="form-control" id="destination" name="destination_affiche">
+  <select class="form-control" id="destination-list" name="destination_affiche" onChange="getSourcefinance(this.value);" >
 <!-- Retourne une ligne de résultat MySQL sous la forme d'un tableau associatif-->
               <option >---DESTINATION--</option>
    <?php while($destinations= mysql_fetch_array($resultat1)){ ?>
- <option value="<?php echo $destinations['destination']; ?>">
- <?php echo $destinations['lib_destination']; ?> </option>
+ <option value="<?php echo $destinations['DESTINATION']; ?>">
+ <?php echo $destinations['LIB_DESTINATION']; ?> </option>
  
  <?php } ?>
  
@@ -116,25 +126,27 @@ $res_source=mysql_query($req_source); //Envoie une requête à un serveur MySQL
 <p></p>
 <div class="input-group source_group"><span class="input-group-addon" id="basic-addon1">Selectionner la source:</span>
     <span class="input-group-btn" id="basic-addon1"><button  id="AjoutSource"  class="btn btn-primary">+</button></span>
- <select class="form-control source_finance" id="source_finance" name="source_finance">
+ <select class="form-control source_finance" id="source_finance-list" name="source_finance" onChange="getNature(this.value,document.getElementById('destination-list').value);" >
  <!-- Retourne une ligne de résultat MySQL sous la forme d'un tableau associatif-->
-    <?php while($sources= mysql_fetch_array($res_source)){ ?>
- <option value="<?php echo $sources['code_source_dotation']; ?>">
- <?php echo $sources['lib_sourceF']; ?> </option>
  
- <?php } ?>
+ <option value=""> Source de financement </option>
+ 
   </select> 
   </div>
+  
   <p></p>
 
 <div class="input-group nature_group"><span class="input-group-addon" id="basic-addon1">Selectionner la nature:</span>
     <span class="input-group-btn" id="basic-addon1"><button  id="AjoutNature"  class="btn btn-primary">+</button></span>
-<select class="form-control nature" id="nature" name="nature_lib">
-    <?php while($natures= mysql_fetch_array($resultat2)){ ?>
- <option value="<?php echo $natures['id_nature']; ?>">
- <?php echo $natures['id_nature'].'-'.$natures['lib_nature']; ?> </option>
+<select class="form-control nature" id="nature-list" name="nature_lib">
+    <?php /*?><?php while($natures= mysql_fetch_array($resultat2)){ ?><?php */?>
+ <option value=""> Selectionnez la nature
+ <?php /*?><?php echo $natures['id_nature'].'-'.$natures['lib_nature']; ?> <?php */?>
  
- <?php } ?>
+ 
+ </option>
+ 
+<?php /*?> <?php } ?><?php */?>
   </select>
   </div>
 
@@ -396,9 +408,9 @@ var lib_destination = document.getElementById('lib_destination').value;
 	});
 
 $('#situation_budget').on('click', function(){
-	var projet = $('#destination').val();
-	var source_finance = $('#source_finance').val();
-	var nature = $('#nature').val(); 
+	var projet = $('#destination-list').val();
+	var source_finance = $('#source_finance-list').val();
+	var nature = $('#nature-list').val(); 
 	var date_edition_das = $('#date_edition_das').val();
 	var date_production_situation = $('#date_production_situation').val(); 
 	var montant_eng_situation = $('#montant_eng_situation').val();
@@ -519,6 +531,34 @@ function verifnature()
 		   return false;
 	   }
 	}
+
+// Cette fonction sera appelle à chaque changement de la valeur des destinations
+function getSourcefinance(val) {
+	$.ajax({
+	type: "POST",
+	url: "php/get_source.php",
+	data:'destination_id='+val,
+	success: function(data){
+		$("#source_finance-list").html(data);
+	}
+	});
+}
+
+// Cette fonction sera appelle à chaque changement de la valeur des destinations
+function getNature(val1,val2) {
+	
+	//val1 represente la valeur de la source de financement et val2 represente la valeur de la destination
+	var val2=document.getElementById("destination-list").value;
+	//console.log(val2);
+	$.ajax({
+	type: "POST",
+	url: "php/get_nature.php",
+	data:'source_id='+val1+'&destination_id='+val2,
+	success: function(data){
+		$("#nature-list").html(data);
+	}
+	});
+}
 
 
 </script>
